@@ -12,73 +12,68 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Display',sans-serif;overscroll-behavior:none;}
 body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 env(safe-area-inset-bottom,16px);}
-.hdr{padding:12px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.hdr{padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .hdr-left{display:flex;align-items:center;gap:8px;}
-.back-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;}
-.hdr-title{font-size:1.05rem;font-weight:700;}
+.back-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.hdr-title{font-size:1rem;font-weight:700;}
 .hdr-title span{color:var(--blue);}
-.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--blue);padding:7px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;}
+.hdr-right{display:flex;align-items:center;gap:6px;}
+.upd-time{font-size:0.62rem;color:var(--muted);}
+.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--blue);padding:6px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;}
 .icon-btn:active{opacity:0.7;}
 .page{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .page.active{display:flex;}
-.scroll-body{flex:1;overflow-y:auto;padding:0 14px 20px;-webkit-overflow-scrolling:touch;}
-/* Cash */
-.cash-bar{background:var(--card);border:1px solid var(--blue);border-radius:14px;padding:12px 14px;margin-bottom:10px;}
-.cash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.cash-label{font-size:0.72rem;color:var(--blue);font-weight:700;}
-.cash-sub{font-size:0.65rem;color:var(--muted);}
-.cash-row{display:flex;gap:8px;align-items:center;}
-.cash-prefix{font-size:1rem;font-weight:700;color:var(--muted);}
-.cash-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:1.25rem;font-weight:800;padding:8px 12px;border-radius:10px;flex:1;outline:none;-webkit-appearance:none;}
+.scroll-body{flex:1;overflow-y:auto;padding:0 12px 20px;-webkit-overflow-scrolling:touch;}
+/* Top panel */
+.top-panel{background:var(--card);border:1px solid var(--blue);border-radius:10px;padding:8px 10px;margin-bottom:6px;}
+.cash-row{display:flex;gap:6px;align-items:center;margin-bottom:5px;}
+.cash-prefix{font-size:0.82rem;font-weight:700;color:var(--muted);}
+.cash-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:1rem;font-weight:800;padding:5px 10px;border-radius:8px;flex:1;outline:none;-webkit-appearance:none;min-width:0;}
 .cash-input:focus{border-color:var(--blue);}
-.cash-btn{background:var(--blue);color:#fff;border:none;padding:8px 16px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;}
-.fx-row{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-.fx-label{font-size:0.68rem;color:var(--muted);white-space:nowrap;}
-.fx-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:0.9rem;font-weight:700;padding:5px 10px;border-radius:8px;width:90px;outline:none;}
-.fx-hint{font-size:0.65rem;color:var(--muted);}
-/* Summary */
-.sum-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.sum-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 12px;}
-.sum-lbl{font-size:0.62rem;color:var(--muted);margin-bottom:4px;}
-.sum-val{font-size:1rem;font-weight:800;}
-.sum-sub{font-size:0.65rem;color:var(--muted);margin-top:3px;}
+.cash-btn{background:var(--blue);color:#fff;border:none;padding:5px 12px;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+.fx-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.fx-label{font-size:0.62rem;color:var(--muted);white-space:nowrap;}
+.fx-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:0.82rem;font-weight:700;padding:3px 8px;border-radius:6px;width:68px;outline:none;}
+.fx-hint{font-size:0.6rem;color:var(--muted);}
+.summary-bar{display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid var(--border);}
+.sum-left{display:flex;flex-direction:column;gap:1px;}
+.sum-lbl{font-size:0.58rem;color:var(--muted);}
+.sum-val{font-size:0.9rem;font-weight:800;color:var(--blue);}
+.sum-sub{font-size:0.6rem;color:var(--muted);}
+.sum-right{text-align:right;display:flex;flex-direction:column;gap:1px;}
 /* Pos card */
 .pos-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;}
-.pos-hdr{padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;}
-.pos-ticker{font-size:1.05rem;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.pos-name{font-size:0.65rem;color:var(--muted);margin-top:2px;}
-.pos-wt{font-size:0.65rem;color:var(--muted);margin-top:2px;}
+.pos-hdr{padding:10px 12px 6px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;}
+.pos-ticker{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pos-name{font-size:0.63rem;color:var(--muted);margin-top:2px;}
+.pos-wt{font-size:0.63rem;color:var(--muted);margin-top:2px;}
 .pos-right{text-align:right;}
-.pos-price{font-size:1.05rem;font-weight:700;}
-.pos-sub{font-size:0.65rem;color:var(--muted);margin-top:2px;}
-/* Key levels strip */
-.kl-strip{display:flex;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:#0d1117;}
-.kl{flex:1;text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;}
+.pos-price{font-size:1rem;font-weight:700;}
+.pos-sub{font-size:0.63rem;color:var(--muted);margin-top:2px;}
+.kl-strip{display:flex;gap:5px;padding:7px 12px;border-top:1px solid var(--border);background:#0d1117;}
+.kl{flex:1;text-align:center;background:var(--card);border-radius:7px;padding:5px 3px;}
 .kl-mid{flex:1.2;background:#1a2030;}
-.kl-lbl{font-size:0.58rem;font-weight:700;color:var(--muted);}
-.kl-val{font-size:0.82rem;font-weight:800;margin-top:2px;}
-.kl-d{font-size:0.58rem;margin-top:2px;}
-/* Action */
-.act-row{padding:0 14px 10px;cursor:pointer;}
-.act-badge{font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:10px;display:inline-block;}
+.kl-lbl{font-size:0.56rem;font-weight:700;color:var(--muted);}
+.kl-val{font-size:0.78rem;font-weight:800;margin-top:2px;}
+.kl-d{font-size:0.56rem;margin-top:2px;}
+.act-row{padding:0 12px 8px;cursor:pointer;}
+.act-badge{font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:10px;display:inline-block;}
 .act-buy{background:#1a4a25;color:var(--green);}
 .act-sell{background:#2a1010;color:var(--red);}
 .act-hold{background:#21262d;color:var(--muted);}
 .act-cash{background:#1a2a3a;color:var(--blue);}
-/* Rebal */
-.rb-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:#0a0f15;}
+.rb-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:7px 12px;border-top:1px solid var(--border);background:#0a0f15;}
 .rb-cell{text-align:center;}
-.rb-lbl{font-size:0.6rem;color:var(--muted);margin-bottom:3px;}
-.rb-val{font-size:0.88rem;font-weight:700;}
-.rb-sub{font-size:0.6rem;color:var(--muted);margin-top:2px;}
-/* Pills */
-.sig-pill{font-size:0.63rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.rb-lbl{font-size:0.58rem;color:var(--muted);margin-bottom:2px;}
+.rb-val{font-size:0.85rem;font-weight:700;}
+.rb-sub{font-size:0.58rem;color:var(--muted);margin-top:2px;}
+.sig-pill{font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:10px;}
 .pill-bull{background:#1a3a20;color:var(--green);}
 .pill-bear{background:#3a1010;color:var(--red);}
 .pill-warn{background:#3a2a00;color:var(--yellow);}
 .pill-idle{background:#21262d;color:var(--muted);}
 /* Detail */
-.sig-banner{border-radius:14px;padding:14px 16px;margin-bottom:12px;border:1px solid;}
+.sig-banner{border-radius:14px;padding:13px 15px;margin-bottom:12px;border:1px solid;}
 .sig-title{font-size:1rem;font-weight:800;margin-bottom:5px;}
 .sig-body{font-size:0.77rem;line-height:1.65;}
 .sig-action{font-size:0.74rem;font-weight:700;margin-top:9px;padding:6px 12px;border-radius:8px;display:inline-block;}
@@ -100,7 +95,6 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 .note-box{background:var(--card);border:1px solid var(--yellow);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
 .note-lbl{font-size:0.68rem;color:var(--muted);margin-bottom:6px;}
 .note-txt{font-size:0.77rem;color:#c9d1d9;line-height:1.65;}
-/* Alert calc */
 .alert-box{background:var(--card);border:1px solid var(--purple);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
 .alert-lbl{font-size:0.68rem;color:var(--purple);margin-bottom:10px;font-weight:700;}
 .alert-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
@@ -108,8 +102,6 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 .alert-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:0.95rem;font-weight:700;padding:7px 10px;border-radius:8px;outline:none;width:100%;-webkit-appearance:none;}
 .alert-input:focus{border-color:var(--purple);}
 .alert-result{background:var(--bg);border-radius:8px;padding:10px 12px;font-size:0.82rem;line-height:1.8;}
-.alert-row{display:flex;justify-content:space-between;align-items:center;}
-/* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:flex-end;justify-content:center;}
 .modal-overlay.show{display:flex;}
 .modal{background:var(--card);border-radius:20px 20px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom)+20px);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;}
@@ -123,7 +115,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 .mbtn-del{flex:1;background:#2a1010;border:1px solid var(--red);color:var(--red);padding:11px;border-radius:12px;font-size:0.85rem;cursor:pointer;}
 .mbtn-cancel{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--muted);padding:11px;border-radius:12px;font-size:0.85rem;cursor:pointer;}
 .mbtn-save{flex:2;background:var(--blue);border:none;color:#fff;padding:11px;border-radius:12px;font-size:0.85rem;font-weight:700;cursor:pointer;}
-.fab{position:fixed;bottom:28px;right:18px;background:var(--blue);color:#fff;border:none;width:52px;height:52px;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 20px rgba(88,166,255,0.35);display:flex;align-items:center;justify-content:center;z-index:50;}
+.fab{position:fixed;bottom:28px;right:18px;background:var(--blue);color:#fff;border:none;width:50px;height:50px;border-radius:50%;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 20px rgba(88,166,255,0.35);display:flex;align-items:center;justify-content:center;z-index:50;}
 .fab:active{transform:scale(0.95);}
 .loading-overlay{display:none;position:fixed;inset:0;background:rgba(13,17,23,0.92);align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:300;}
 .loading-overlay.show{display:flex;}
@@ -148,13 +140,13 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
     <div class="modal-title" id="modal-title">編輯持倉</div>
     <div class="field"><label>股票代號</label><input id="f-ticker" placeholder="例：NVDA"></div>
     <div class="field"><label>股票名稱</label><input id="f-name" placeholder="例：英偉達"></div>
-    <div class="field"><label>持倉股數（空倉填 0）</label><input id="f-shares" type="number" step="1" placeholder="例：13"></div>
-    <div class="field"><label>平均成本價 ($)</label><input id="f-cost" type="number" step="0.001" placeholder="例：219.041"></div>
-    <div class="field"><label>目標倉位權重 (%)</label><input id="f-weight" type="number" step="1" placeholder="例：12"><div class="hint">整體組合目標比重</div></div>
-    <div class="field"><label>止盈 TARGET (%，相對成本)</label><input id="f-tp" type="number" step="1" placeholder="例：30"><div class="hint">留空 = 長線不賣</div></div>
-    <div class="field"><label>加倉 BUY DIP (%，跌幅)</label><input id="f-dip" type="number" step="1" placeholder="例：20"><div class="hint">留空 = 不設加倉</div></div>
-    <div class="field"><label>止蝕 (%，跌幅)</label><input id="f-sl" type="number" step="1" placeholder="例：35"><div class="hint">留空 = 裝死不割</div></div>
-    <div class="field"><label>戰略備忘</label><input id="f-note" placeholder="例：跌穿$189才加倉"></div>
+    <div class="field"><label>持倉股數（空倉填 0）</label><input id="f-shares" type="number" step="1"></div>
+    <div class="field"><label>平均成本價 ($)</label><input id="f-cost" type="number" step="0.001"></div>
+    <div class="field"><label>目標倉位權重 (%)</label><input id="f-weight" type="number" step="1"><div class="hint">整體組合目標比重</div></div>
+    <div class="field"><label>止盈 TARGET (%，相對成本)</label><input id="f-tp" type="number" step="1"><div class="hint">留空 = 長線不賣</div></div>
+    <div class="field"><label>加倉 BUY DIP (%，跌幅)</label><input id="f-dip" type="number" step="1"><div class="hint">留空 = 不設加倉</div></div>
+    <div class="field"><label>止蝕 (%，跌幅)</label><input id="f-sl" type="number" step="1"><div class="hint">留空 = 裝死不割</div></div>
+    <div class="field"><label>戰略備忘</label><input id="f-note"></div>
     <div class="modal-btns">
       <button class="mbtn-del" id="mbtn-del" onclick="deletePosModal()">🗑</button>
       <button class="mbtn-cancel" onclick="closeModal()">取消</button>
@@ -163,49 +155,59 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
   </div>
 </div>
 
+<!-- LIST HDR -->
 <div class="hdr" id="list-hdr">
   <div class="hdr-left">
     <a class="back-btn" href="index.html">←</a>
     <div class="hdr-title">💼 <span>股票組合</span></div>
   </div>
-  <button class="icon-btn" onclick="loadAllPrices()">🔄 更新</button>
+  <div class="hdr-right">
+    <span class="upd-time" id="s-src">--</span>
+    <button class="icon-btn" onclick="loadAllPrices()">🔄 更新</button>
+  </div>
 </div>
 
+<!-- LIST PAGE -->
 <div class="page active" id="list-page">
   <div class="scroll-body">
-    <div class="cash-bar">
-      <div class="cash-top">
-        <div class="cash-label">💵 總現金（港元）</div>
-        <div class="cash-sub" id="cash-updated">--</div>
-      </div>
+
+    <!-- Compact top panel -->
+    <div class="top-panel">
       <div class="cash-row">
         <span class="cash-prefix">HK$</span>
         <input class="cash-input" id="cash-input" type="number" step="1000" placeholder="0" inputmode="decimal">
         <button class="cash-btn" onclick="saveCash()">確認</button>
       </div>
       <div class="fx-row">
-        <span class="fx-label">USD/HKD 匯率：</span>
+        <span class="fx-label">USD/HKD：</span>
         <input class="fx-input" id="fx-input" type="number" step="0.001" value="7.78" inputmode="decimal">
-        <span class="fx-hint">用於換算再平衡</span>
+        <span class="fx-hint">匯率（用於換算）</span>
+      </div>
+      <div class="summary-bar">
+        <div class="sum-left">
+          <div class="sum-lbl">💵 總現金</div>
+          <div class="sum-val" id="s-cash-disp">--</div>
+        </div>
+        <div style="font-size:0.7rem;color:var(--muted);padding:0 8px">＋</div>
+        <div class="sum-left" style="flex:1">
+          <div class="sum-lbl">📈 持股市值</div>
+          <div class="sum-val" id="s-mv-hkd">--</div>
+          <div class="sum-sub" id="s-mv-usd">≈ -- USD</div>
+        </div>
+        <div class="sum-right">
+          <div class="sum-lbl">總資產</div>
+          <div class="sum-val" id="s-total">--</div>
+          <div class="sum-sub" id="s-fx">--</div>
+        </div>
       </div>
     </div>
-    <div class="sum-row">
-      <div class="sum-box">
-        <div class="sum-lbl">總持股市值（港元）</div>
-        <div class="sum-val c-blue" id="s-mv-hkd">--</div>
-        <div class="sum-sub" id="s-mv-usd">≈ -- USD</div>
-      </div>
-      <div class="sum-box">
-        <div class="sum-lbl">更新時間</div>
-        <div class="sum-val" style="font-size:0.75rem;color:var(--muted)" id="s-src">--</div>
-        <div class="sum-sub" id="s-fx">匯率 --</div>
-      </div>
-    </div>
+
     <div id="pos-list"></div>
     <div class="disclaimer">⚠️ 現價來自 Finnhub（可能略有延遲）。再平衡建議僅供參考。</div>
   </div>
 </div>
 
+<!-- DETAIL HDR -->
 <div class="hdr" id="detail-hdr" style="display:none">
   <div class="hdr-left">
     <button class="back-btn" onclick="showList()">←</button>
@@ -257,7 +259,6 @@ function saveCash(){
   cashHKD=parseFloat(document.getElementById('cash-input').value)||0;
   usdHkdRate=parseFloat(document.getElementById('fx-input').value)||7.78;
   try{localStorage.setItem(CASH_KEY,cashHKD);localStorage.setItem(FX_KEY,usdHkdRate);}catch(e){}
-  document.getElementById('cash-updated').textContent='已更新 '+new Date().toLocaleTimeString('zh-Hant',{hour:'2-digit',minute:'2-digit'});
   renderList();
 }
 document.getElementById('fx-input').addEventListener('change',function(){
@@ -292,7 +293,7 @@ async function fhQuote(sym){
   if(!r.ok) throw new Error(r.status);
   var j=await r.json();
   if(!j.c||j.c===0) throw new Error('no data');
-  return {price:j.c, change:+(j.c-j.pc).toFixed(2), pct:+((j.c-j.pc)/j.pc*100).toFixed(2)};
+  return {price:j.c,change:+(j.c-j.pc).toFixed(2),pct:+((j.c-j.pc)/j.pc*100).toFixed(2)};
 }
 
 async function loadAllPrices(){
@@ -310,7 +311,6 @@ async function loadAllPrices(){
     }catch(e){}
   }
   document.getElementById('s-src').textContent=new Date().toLocaleTimeString('zh-Hant',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('s-fx').textContent='匯率 '+usdHkdRate;
   document.getElementById('overlay').classList.remove('show');
 }
 
@@ -338,23 +338,25 @@ function renderList(){
   positions.forEach(function(p){if(p.price&&p.shares){totalMV+=p.price*p.shares;hasMV=true;}});
   var cashUSD=cashHKD/usdHkdRate;
   var totalAssetsUSD=cashUSD+totalMV;
+  var totalHKD=(totalAssetsUSD)*usdHkdRate;
+
+  document.getElementById('s-cash-disp').textContent=cashHKD?'HK$'+Math.round(cashHKD).toLocaleString():'--';
   document.getElementById('s-mv-hkd').textContent=hasMV?'HK$'+Math.round(totalMV*usdHkdRate).toLocaleString():'--';
   document.getElementById('s-mv-usd').textContent=hasMV?'≈ US$'+Math.round(totalMV).toLocaleString():'≈ -- USD';
-  document.getElementById('s-fx').textContent='匯率 1 USD = '+usdHkdRate+' HKD';
+  document.getElementById('s-total').textContent=(cashHKD||hasMV)?'HK$'+Math.round(totalHKD).toLocaleString():'--';
+  document.getElementById('s-fx').textContent='1 USD = '+usdHkdRate+' HKD';
 
   var el=document.getElementById('pos-list');
   if(!positions.length){el.innerHTML='<div style="text-align:center;color:var(--muted);padding:40px">暫無持倉<br>點右下角＋新增</div>';return;}
 
   var html='';
   positions.forEach(function(p){
-    var price=p.price, shares=p.shares||0, cost=p.cost;
+    var price=p.price,shares=p.shares||0,cost=p.cost;
     var pnl=price&&shares&&cost?(price-cost)*shares:null;
     var pnlPct=pnl&&cost*shares?(pnl/(cost*shares)*100):null;
     var sig=getSignal(p);
     var rb=calcRebal(p,totalAssetsUSD);
     var pc=price&&cost?(price>=cost?'c-green':'c-red'):'';
-
-    // Key levels strip
     var tpP=p.tpPct&&cost?+(cost*(1+p.tpPct/100)).toFixed(2):null;
     var dipP=p.dipPct&&cost?+(cost*(1-p.dipPct/100)).toFixed(2):null;
     var tpDiff=tpP&&price?(tpP-price):null;
@@ -366,7 +368,7 @@ function renderList(){
       +'<div class="kl">'
         +'<div class="kl-lbl">🎯 止盈目標</div>'
         +'<div class="kl-val '+(tpP?'c-green':'c-muted')+'">'+(tpP?'$'+tpP:'長線不賣')+'</div>'
-        +'<div class="kl-d '+(tpDiffPct!=null?'c-yellow':'')+'">'+(tpDiffPct!=null?'差 +$'+tpDiff.toFixed(1)+' (+'+tpDiffPct.toFixed(1)+'%)':'')+'</div>'
+        +'<div class="kl-d c-yellow">'+(tpDiffPct!=null?'差+$'+tpDiff.toFixed(1)+' (+'+tpDiffPct.toFixed(1)+'%)':'')+'</div>'
       +'</div>'
       +'<div class="kl kl-mid">'
         +'<div class="kl-lbl" style="color:var(--blue)">現價</div>'
@@ -376,11 +378,10 @@ function renderList(){
       +'<div class="kl">'
         +'<div class="kl-lbl">🛒 加倉位</div>'
         +'<div class="kl-val '+(dipP?'c-yellow':'c-muted')+'">'+(dipP?'$'+dipP:'不設加倉')+'</div>'
-        +'<div class="kl-d '+(dipDiffPct!=null?(dipDiffPct>=0?'c-muted':'c-yellow'):'')+'">'+(dipDiffPct!=null?(dipDiffPct>=0?'差 -$'+dipDiff.toFixed(1)+' (-'+dipDiffPct.toFixed(1)+'%)':'已觸發！'):'')+'</div>'
+        +'<div class="kl-d '+(dipDiffPct!=null?(dipDiffPct>0?'c-muted':'c-yellow'):'')+'">'+(dipDiffPct!=null?(dipDiffPct>0?'差-$'+dipDiff.toFixed(1)+' (-'+dipDiffPct.toFixed(1)+'%)':'⚠️ 已觸發！'):'')+'</div>'
       +'</div>'
     +'</div>';
 
-    // Rebal row
     var rbHtml='';
     if(rb){
       rbHtml='<div class="rb-row">'
@@ -392,7 +393,6 @@ function renderList(){
         +'</div></div>';
     }
 
-    // Action badge
     var actHtml='';
     if(rb){
       if(Math.abs(rb.diff)>=1){
@@ -410,8 +410,8 @@ function renderList(){
     html+='<div class="pos-card">'
       +'<div class="pos-hdr" onclick="showDetail(\''+p.ticker+'\')">'
         +'<div>'
-          +'<div class="pos-ticker">'+p.ticker+(shares===0?'<span style="font-size:0.6rem;color:var(--muted);font-weight:400"> 空倉</span>':'')
-            +'<span class="sig-pill '+sig.pill+'">'+sig.pillTxt+'</span></div>'
+          +'<div class="pos-ticker">'+p.ticker+(shares===0?' <span style="font-size:0.58rem;color:var(--muted);font-weight:400">空倉</span>':'')
+            +' <span class="sig-pill '+sig.pill+'">'+sig.pillTxt+'</span></div>'
           +'<div class="pos-name">'+p.name+'</div>'
           +'<div class="pos-wt">'+(p.weight?'目標 '+p.weight+'% · 現 '+(rb?rb.currentPct.toFixed(1)+'%':'--'):'')+'</div>'
         +'</div>'
@@ -421,9 +421,7 @@ function renderList(){
           +'<div class="pos-sub">'+chgHtml+'</div>'
         +'</div>'
       +'</div>'
-      +actHtml
-      +klHtml
-      +rbHtml
+      +actHtml+klHtml+rbHtml
     +'</div>';
   });
   el.innerHTML=html;
@@ -474,7 +472,7 @@ function buildDetail(p){
     h+='<div class="prog-track"><div class="prog-fill" style="width:'+prog.toFixed(0)+'%;background:'+fc+'"></div></div>'
       +'<div class="prog-labels"><span>成本 $'+cost.toFixed(2)+'</span><span>'+prog.toFixed(0)+'%</span><span>+'+tpPct+'% $'+tpPrice+'</span></div>'
       +'<div class="tpsl-r"><span class="tpsl-k">🎯 止盈 TARGET</span><span class="tpsl-v c-green">$'+tpPrice+'<span class="tpsl-pct">+'+tpPct+'%</span></span></div>'
-      +'<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem"> 　距止盈</span><span class="tpsl-v c-yellow">+$'+tpDiff.toFixed(2)+' (+'+tpDiffPct.toFixed(1)+'%)</span></div>';
+      +'<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem">　距止盈</span><span class="tpsl-v c-yellow">+$'+tpDiff.toFixed(2)+' (+'+tpDiffPct.toFixed(1)+'%)</span></div>';
   } else {
     h+='<div class="tpsl-r"><span class="tpsl-k">🎯 止盈</span><span class="tpsl-v c-muted">長線不賣</span></div>';
   }
@@ -482,9 +480,9 @@ function buildDetail(p){
     var dipDiff=price-dipPrice,dipDiffPct=price?(dipDiff/price*100):0;
     h+='<div class="tpsl-r"><span class="tpsl-k">🛒 加倉 BUY DIP</span><span class="tpsl-v c-yellow">$'+dipPrice+'<span class="tpsl-pct">-'+dipPct+'%</span></span></div>';
     if(dipDiff>=0){
-      h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem"> 　距加倉位</span><span class="tpsl-v c-muted">還差 -$'+dipDiff.toFixed(2)+' (-'+dipDiffPct.toFixed(1)+'%)</span></div>';
+      h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem">　距加倉位</span><span class="tpsl-v c-muted">還差 -$'+dipDiff.toFixed(2)+' (-'+dipDiffPct.toFixed(1)+'%)</span></div>';
     } else {
-      h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--yellow);font-size:0.68rem"> 　⚠️ 已低於加倉位！</span><span class="tpsl-v c-yellow">$'+Math.abs(dipDiff).toFixed(2)+' 低於觸發點</span></div>';
+      h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--yellow);font-size:0.68rem">　⚠️ 已低於加倉位！</span><span class="tpsl-v c-yellow">$'+Math.abs(dipDiff).toFixed(2)+' 低於觸發點</span></div>';
     }
   } else {
     h+='<div class="tpsl-r"><span class="tpsl-k">🛒 加倉</span><span class="tpsl-v c-muted">不設加倉</span></div>';
@@ -517,16 +515,13 @@ function calcAlert(){
   var base=parseFloat(document.getElementById('ac-base').value)||0;
   var pct=parseFloat(document.getElementById('ac-pct').value);
   var el=document.getElementById('ac-result');
-  if(!el||!base||isNaN(pct)){
-    if(el) el.innerHTML='<span style="color:var(--muted);font-size:0.75rem">輸入百分比後自動計算目標價…</span>';
-    return;
-  }
+  if(!el||!base||isNaN(pct)){if(el)el.innerHTML='<span style="color:var(--muted);font-size:0.75rem">輸入百分比後自動計算目標價…</span>';return;}
   var target=+(base*(1+pct/100)).toFixed(2);
   var isUp=pct>=0;
   var color=isUp?'var(--green)':'var(--red)';
-  el.innerHTML='<div class="alert-row"><span style="color:var(--muted);font-size:0.75rem">起點</span><span style="font-weight:700">$'+base.toFixed(2)+'</span></div>'
-    +'<div class="alert-row"><span style="color:var(--muted);font-size:0.75rem">變動</span><span style="font-weight:700;color:'+color+'">'+(isUp?'+':'')+pct+'% '+(isUp?'↑':'↓')+'</span></div>'
-    +'<div class="alert-row" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">'
+  el.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><span style="color:var(--muted);font-size:0.75rem">起點</span><span style="font-weight:700">$'+base.toFixed(2)+'</span></div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:center"><span style="color:var(--muted);font-size:0.75rem">變動</span><span style="font-weight:700;color:'+color+'">'+(isUp?'+':'')+pct+'% '+(isUp?'↑':'↓')+'</span></div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">'
     +'<span style="font-size:0.8rem;font-weight:700">目標價</span>'
     +'<span style="font-weight:800;font-size:1.2rem;color:'+color+'">$'+target+'</span></div>';
 }
