@@ -315,7 +315,7 @@ function showDetail(ticker){
   buildDetail(p);
 }
 
-// ── QUOTE via Finnhub (direct, same as options.html) ──
+// ── QUOTE via Finnhub (direct) ──
 async function fhQuote(sym){
   const r = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(sym)}&token=${FK}`);
   if(!r.ok) throw new Error(r.status);
@@ -324,32 +324,33 @@ async function fhQuote(sym){
   return{price:j.c, change:+(j.c-j.pc).toFixed(2), pct:+((j.c-j.pc)/j.pc*100).toFixed(2)};
 }
 
-// ── LOAD ALL PRICES (Finnhub, parallel) ──
+// ── LOAD ALL PRICES — sequential, show each price as it arrives ──
 async function loadAllPrices(){
   document.getElementById('lmsg').textContent='更新股票報價…';
-  document.getElementById('lsub').textContent='透過 Finnhub 抓取即時數據';
+  document.getElementById('lsub').textContent='正在逐一取得即時報價';
   document.getElementById('overlay').classList.add('show');
 
-  const results = await Promise.allSettled(
-    positions.map(p => fhQuote(p.ticker))
-  );
-  results.forEach((r,i)=>{
-    if(r.status==='fulfilled'){
-      positions[i].price  = r.value.price;
-      positions[i].change = r.value.change;
-      positions[i].pct    = r.value.pct;
-      positions[i].priceDate = new Date().toLocaleDateString('zh-Hant');
+  for(let i=0; i<positions.length; i++){
+    const p = positions[i];
+    document.getElementById('lmsg').textContent=`正在取得 ${p.ticker} (${i+1}/${positions.length})`;
+    try{
+      const d = await fhQuote(p.ticker);
+      p.price  = d.price;
+      p.change = d.change;
+      p.pct    = d.pct;
+      p.priceDate = new Date().toLocaleDateString('zh-Hant');
+      persist();
+      renderList(); // show price immediately as each one arrives
+    }catch(e){
+      // keep existing price, continue to next
     }
-  });
+  }
 
-  // MA via Alpha Vantage (best-effort, don't block price display)
-  persist();
-  renderList();
   document.getElementById('s-src').textContent=new Date().toLocaleTimeString('zh-Hant',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('s-fx').textContent='匯率 '+usdHkdRate;
   document.getElementById('overlay').classList.remove('show');
 
-  // Fetch MA in background sequentially
+  // MA in background after prices are all shown
   fetchMABackground();
 }
 
