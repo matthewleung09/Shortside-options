@@ -8,67 +8,70 @@
 <meta name="apple-mobile-web-app-title" content="股票組合">
 <title>股票組合</title>
 <style>
-:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#f0883e;--purple:#bc8cff;}
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--purple:#bc8cff;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Display',sans-serif;overscroll-behavior:none;}
 body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 env(safe-area-inset-bottom,16px);}
 .hdr{padding:12px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .hdr-left{display:flex;align-items:center;gap:8px;}
 .back-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;}
-.back-btn:active{opacity:0.7;}
 .hdr-title{font-size:1.05rem;font-weight:700;}
 .hdr-title span{color:var(--blue);}
-.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--blue);padding:7px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--blue);padding:7px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;}
 .icon-btn:active{opacity:0.7;}
 .page{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .page.active{display:flex;}
 .scroll-body{flex:1;overflow-y:auto;padding:0 14px 20px;-webkit-overflow-scrolling:touch;}
+/* Cash */
 .cash-bar{background:var(--card);border:1px solid var(--blue);border-radius:14px;padding:12px 14px;margin-bottom:10px;}
 .cash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .cash-label{font-size:0.72rem;color:var(--blue);font-weight:700;}
 .cash-sub{font-size:0.65rem;color:var(--muted);}
-.cash-input-row{display:flex;gap:8px;align-items:center;}
+.cash-row{display:flex;gap:8px;align-items:center;}
 .cash-prefix{font-size:1rem;font-weight:700;color:var(--muted);}
 .cash-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:1.25rem;font-weight:800;padding:8px 12px;border-radius:10px;flex:1;outline:none;-webkit-appearance:none;}
 .cash-input:focus{border-color:var(--blue);}
-.cash-confirm{background:var(--blue);color:#fff;border:none;padding:8px 16px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;}
+.cash-btn{background:var(--blue);color:#fff;border:none;padding:8px 16px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;}
 .fx-row{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
 .fx-label{font-size:0.68rem;color:var(--muted);white-space:nowrap;}
 .fx-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:0.9rem;font-weight:700;padding:5px 10px;border-radius:8px;width:90px;outline:none;}
-.fx-input:focus{border-color:var(--yellow);}
 .fx-hint{font-size:0.65rem;color:var(--muted);}
-.summary-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+/* Summary */
+.sum-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
 .sum-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 12px;}
 .sum-lbl{font-size:0.62rem;color:var(--muted);margin-bottom:4px;}
 .sum-val{font-size:1rem;font-weight:800;}
 .sum-sub{font-size:0.65rem;color:var(--muted);margin-top:3px;}
+/* Pos card */
 .pos-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;}
-.pos-header{padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;}
+.pos-hdr{padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;}
 .pos-ticker{font-size:1.05rem;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .pos-name{font-size:0.65rem;color:var(--muted);margin-top:2px;}
 .pos-wt{font-size:0.65rem;color:var(--muted);margin-top:2px;}
 .pos-right{text-align:right;}
 .pos-price{font-size:1.05rem;font-weight:700;}
-.pos-price-sub{font-size:0.65rem;color:var(--muted);margin-top:2px;}
-.pos-action{padding:0 14px 10px;cursor:pointer;}
+.pos-sub{font-size:0.65rem;color:var(--muted);margin-top:2px;}
+/* Key levels strip */
+.kl-strip{display:flex;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:#0d1117;}
+.kl{flex:1;text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;}
+.kl-mid{flex:1.2;background:#1a2030;}
+.kl-lbl{font-size:0.58rem;font-weight:700;color:var(--muted);}
+.kl-val{font-size:0.82rem;font-weight:800;margin-top:2px;}
+.kl-d{font-size:0.58rem;margin-top:2px;}
+/* Action */
+.act-row{padding:0 14px 10px;cursor:pointer;}
 .act-badge{font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:10px;display:inline-block;}
 .act-buy{background:#1a4a25;color:var(--green);}
 .act-sell{background:#2a1010;color:var(--red);}
 .act-hold{background:#21262d;color:var(--muted);}
 .act-cash{background:#1a2a3a;color:var(--blue);}
-/* Range strip */
-.range-strip{display:flex;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:#0d1117;}
-.rc{flex:1;text-align:center;background:var(--card);border-radius:8px;padding:6px 4px;}
-.rc-lbl{font-size:0.58rem;font-weight:700;color:var(--muted);}
-.rc-val{font-size:0.82rem;font-weight:800;margin-top:2px;}
-.rc-d{font-size:0.58rem;margin-top:2px;}
-.rc-mid{flex:1.2;background:#1a2030;}
-/* Rebal row */
-.rebal-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:#0a0f15;}
+/* Rebal */
+.rb-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:#0a0f15;}
 .rb-cell{text-align:center;}
 .rb-lbl{font-size:0.6rem;color:var(--muted);margin-bottom:3px;}
 .rb-val{font-size:0.88rem;font-weight:700;}
 .rb-sub{font-size:0.6rem;color:var(--muted);margin-top:2px;}
+/* Pills */
 .sig-pill{font-size:0.63rem;font-weight:700;padding:2px 8px;border-radius:10px;}
 .pill-bull{background:#1a3a20;color:var(--green);}
 .pill-bear{background:#3a1010;color:var(--red);}
@@ -77,7 +80,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 /* Detail */
 .sig-banner{border-radius:14px;padding:14px 16px;margin-bottom:12px;border:1px solid;}
 .sig-title{font-size:1rem;font-weight:800;margin-bottom:5px;}
-.sig-body{font-size:0.77rem;line-height:1.65;white-space:pre-line;}
+.sig-body{font-size:0.77rem;line-height:1.65;}
 .sig-action{font-size:0.74rem;font-weight:700;margin-top:9px;padding:6px 12px;border-radius:8px;display:inline-block;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
 .met{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 12px;}
@@ -87,7 +90,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 .tpsl-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
 .tpsl-lbl{font-size:0.68rem;color:var(--muted);margin-bottom:9px;}
 .prog-track{height:6px;background:#21262d;border-radius:3px;overflow:hidden;margin:4px 0 3px;}
-.prog-fill{height:100%;border-radius:3px;transition:width 0.4s;}
+.prog-fill{height:100%;border-radius:3px;}
 .prog-labels{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted);margin-bottom:8px;}
 .tpsl-r{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 .tpsl-r:last-child{margin-bottom:0;}
@@ -106,8 +109,6 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 .alert-input:focus{border-color:var(--purple);}
 .alert-result{background:var(--bg);border-radius:8px;padding:10px 12px;font-size:0.82rem;line-height:1.8;}
 .alert-row{display:flex;justify-content:space-between;align-items:center;}
-.alert-key{color:var(--muted);font-size:0.75rem;}
-.alert-val{font-weight:700;font-size:0.9rem;}
 /* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:flex-end;justify-content:center;}
 .modal-overlay.show{display:flex;}
@@ -149,11 +150,11 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
     <div class="field"><label>股票名稱</label><input id="f-name" placeholder="例：英偉達"></div>
     <div class="field"><label>持倉股數（空倉填 0）</label><input id="f-shares" type="number" step="1" placeholder="例：13"></div>
     <div class="field"><label>平均成本價 ($)</label><input id="f-cost" type="number" step="0.001" placeholder="例：219.041"></div>
-    <div class="field"><label>目標倉位權重 (%)</label><input id="f-weight" type="number" step="1" placeholder="例：12"><div class="hint">整體組合中此股的目標比重</div></div>
-    <div class="field"><label>止盈 TARGET (%，相對成本)</label><input id="f-tp" type="number" step="1" placeholder="例：30 → 成本+30%"><div class="hint">留空 = 長線不賣</div></div>
-    <div class="field"><label>加倉 BUY DIP (%，跌幅)</label><input id="f-dip" type="number" step="1" placeholder="例：20 → 跌-20%才加倉"><div class="hint">留空 = 不設加倉</div></div>
-    <div class="field"><label>止蝕 (%，跌幅)</label><input id="f-sl" type="number" step="1" placeholder="例：35 → 跌-35%止蝕"><div class="hint">留空 = 裝死不割</div></div>
-    <div class="field"><label>戰略備忘</label><input id="f-note" placeholder="例：跌穿$189才加倉，不割肉"></div>
+    <div class="field"><label>目標倉位權重 (%)</label><input id="f-weight" type="number" step="1" placeholder="例：12"><div class="hint">整體組合目標比重</div></div>
+    <div class="field"><label>止盈 TARGET (%，相對成本)</label><input id="f-tp" type="number" step="1" placeholder="例：30"><div class="hint">留空 = 長線不賣</div></div>
+    <div class="field"><label>加倉 BUY DIP (%，跌幅)</label><input id="f-dip" type="number" step="1" placeholder="例：20"><div class="hint">留空 = 不設加倉</div></div>
+    <div class="field"><label>止蝕 (%，跌幅)</label><input id="f-sl" type="number" step="1" placeholder="例：35"><div class="hint">留空 = 裝死不割</div></div>
+    <div class="field"><label>戰略備忘</label><input id="f-note" placeholder="例：跌穿$189才加倉"></div>
     <div class="modal-btns">
       <button class="mbtn-del" id="mbtn-del" onclick="deletePosModal()">🗑</button>
       <button class="mbtn-cancel" onclick="closeModal()">取消</button>
@@ -162,7 +163,6 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
   </div>
 </div>
 
-<!-- LIST HDR -->
 <div class="hdr" id="list-hdr">
   <div class="hdr-left">
     <a class="back-btn" href="index.html">←</a>
@@ -171,7 +171,6 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
   <button class="icon-btn" onclick="loadAllPrices()">🔄 更新</button>
 </div>
 
-<!-- LIST PAGE -->
 <div class="page active" id="list-page">
   <div class="scroll-body">
     <div class="cash-bar">
@@ -179,10 +178,10 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
         <div class="cash-label">💵 總現金（港元）</div>
         <div class="cash-sub" id="cash-updated">--</div>
       </div>
-      <div class="cash-input-row">
+      <div class="cash-row">
         <span class="cash-prefix">HK$</span>
         <input class="cash-input" id="cash-input" type="number" step="1000" placeholder="0" inputmode="decimal">
-        <button class="cash-confirm" onclick="saveCash()">確認</button>
+        <button class="cash-btn" onclick="saveCash()">確認</button>
       </div>
       <div class="fx-row">
         <span class="fx-label">USD/HKD 匯率：</span>
@@ -190,7 +189,7 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
         <span class="fx-hint">用於換算再平衡</span>
       </div>
     </div>
-    <div class="summary-row">
+    <div class="sum-row">
       <div class="sum-box">
         <div class="sum-lbl">總持股市值（港元）</div>
         <div class="sum-val c-blue" id="s-mv-hkd">--</div>
@@ -203,11 +202,10 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
       </div>
     </div>
     <div id="pos-list"></div>
-    <div class="disclaimer">⚠️ 現價來自 Finnhub。月內高低位來自日線數據。再平衡建議僅供參考。</div>
+    <div class="disclaimer">⚠️ 現價來自 Finnhub（可能略有延遲）。再平衡建議僅供參考。</div>
   </div>
 </div>
 
-<!-- DETAIL HDR -->
 <div class="hdr" id="detail-hdr" style="display:none">
   <div class="hdr-left">
     <button class="back-btn" onclick="showList()">←</button>
@@ -216,7 +214,6 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
   <button class="icon-btn" onclick="openEditModal(currentDetailTicker)">✏️ 編輯</button>
 </div>
 
-<!-- DETAIL PAGE -->
 <div class="page" id="detail-page">
   <div class="scroll-body" id="d-body"></div>
 </div>
@@ -224,35 +221,38 @@ body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 
 <button class="fab" id="fab" onclick="openAddModal()">＋</button>
 
 <script>
-const FK = 'd8imcrhr01qmfrvhpv3gd8imcrhr01qmfrvhpv40';
-const SK = 'portfolio_v4';
-const CASH_KEY = 'total_cash_hkd_v1';
-const FX_KEY = 'usd_hkd_rate_v1';
-let positions = [], cashHKD = 0, usdHkdRate = 7.78;
-let currentDetailTicker = null, editingTicker = null;
+var FK = 'd8imcrhr01qmfrvhpv3gd8imcrhr01qmfrvhpv40';
+var SK = 'portfolio_v4';
+var CASH_KEY = 'total_cash_hkd_v1';
+var FX_KEY = 'usd_hkd_rate_v1';
+var positions = [], cashHKD = 0, usdHkdRate = 7.78;
+var currentDetailTicker = null, editingTicker = null;
 
-const DEFAULTS = [
-  {ticker:'VOO', name:'標普500 ETF',  shares:10, cost:681.184, weight:30, tpPct:null, dipPct:15,  slPct:null, note:'長線壓艙石，永不割肉。跌-15%（~$579）才算極端特價區。'},
-  {ticker:'NVDA',name:'英偉達',        shares:13, cost:219.041, weight:12, tpPct:30,   dipPct:20,  slPct:null, note:'不設割肉止蝕。跌-20%（~$175）才考慮補倉。目前屬裝死區，不主動補倉。'},
-  {ticker:'GLD', name:'黃金ETF',       shares:5,  cost:73.551,  weight:10, tpPct:null, dipPct:null,slPct:null, note:'不割肉也不補倉，長線數碼黃金配置。'},
-  {ticker:'VRT', name:'維諦技術',      shares:8,  cost:336.994, weight:8,  tpPct:25,   dipPct:20,  slPct:null, note:'低位飽和打擊已完成。跌穿$290不再加倉，全面裝死等TARGET 25%。'},
-  {ticker:'RKLB',name:'火箭實驗',      shares:8,  cost:112.470, weight:5,  tpPct:50,   dipPct:35,  slPct:null, note:'太空股性格暴烈。跌-35%（~$73）才是極限。4股已掛雲端限價單等TARGET 50%。'},
-  {ticker:'TQQQ',name:'三倍納指槓桿', shares:0,  cost:0,       weight:5,  tpPct:20,   dipPct:30,  slPct:null, note:'目前空倉。從開槍起點跌-30%時，用3.5萬港元撿鑽石。'},
-  {ticker:'HWM', name:'航天航材',      shares:4,  cost:271.850, weight:5,  tpPct:20,   dipPct:15,  slPct:null, note:'傳統製造業防禦軍。跌-15%（~$231）才開槍加倉。'},
+var DEFAULTS = [
+  {ticker:'VOO', name:'標普500 ETF',   shares:10, cost:681.184, weight:30, tpPct:null, dipPct:15,  slPct:null, note:'長線壓艙石，永不割肉。跌-15%（~$579）才算極端特價區。'},
+  {ticker:'NVDA',name:'英偉達',         shares:13, cost:219.041, weight:12, tpPct:30,   dipPct:20,  slPct:null, note:'不設割肉止蝕。跌-20%（~$175）才考慮補倉。目前屬裝死區。'},
+  {ticker:'GBTC',name:'灰度比特幣信託', shares:5,  cost:73.551,  weight:10, tpPct:null, dipPct:null,slPct:null, note:'不割肉也不補倉，長線數碼黃金配置。'},
+  {ticker:'VRT', name:'維諦技術',       shares:8,  cost:336.994, weight:8,  tpPct:25,   dipPct:20,  slPct:null, note:'低位飽和打擊已完成。跌穿$290不再加倉，全面裝死等TARGET 25%。'},
+  {ticker:'RKLB',name:'火箭實驗',       shares:8,  cost:112.470, weight:5,  tpPct:50,   dipPct:35,  slPct:null, note:'太空股性格暴烈。跌-35%（~$73）才是極限。4股已掛雲端限價單等TARGET 50%。'},
+  {ticker:'TQQQ',name:'三倍納指槓桿',  shares:0,  cost:0,       weight:5,  tpPct:20,   dipPct:30,  slPct:null, note:'目前空倉。從開槍起點跌-30%時，用3.5萬港元撿鑽石。'},
+  {ticker:'HWM', name:'航天航材',       shares:4,  cost:271.850, weight:5,  tpPct:20,   dipPct:15,  slPct:null, note:'傳統製造業防禦軍。跌-15%（~$231）才開槍加倉。'},
 ];
 
-// ── STORAGE ──
 function persist(){try{localStorage.setItem(SK,JSON.stringify(positions));}catch(e){}}
 function loadStorage(){
-  try{const d=localStorage.getItem(SK);if(d)positions=JSON.parse(d);}catch(e){positions=[];}
-  if(!positions.length){positions=DEFAULTS.map(p=>({...p,price:null,change:null,pct:null,monthHigh:null,monthLow:null,priceDate:null}));persist();}
-  try{cashHKD=parseFloat(localStorage.getItem(CASH_KEY))||0;}catch(e){cashHKD=0;}
-  try{usdHkdRate=parseFloat(localStorage.getItem(FX_KEY))||7.78;}catch(e){usdHkdRate=7.78;}
+  try{var d=localStorage.getItem(SK);if(d)positions=JSON.parse(d);}catch(e){positions=[];}
+  if(!positions.length){
+    positions=DEFAULTS.map(function(p){
+      return {ticker:p.ticker,name:p.name,shares:p.shares,cost:p.cost,weight:p.weight,tpPct:p.tpPct,dipPct:p.dipPct,slPct:p.slPct,note:p.note,price:null,change:null,pct:null,priceDate:null};
+    });
+    persist();
+  }
+  try{cashHKD=parseFloat(localStorage.getItem(CASH_KEY))||0;}catch(e){}
+  try{usdHkdRate=parseFloat(localStorage.getItem(FX_KEY))||7.78;}catch(e){}
   if(cashHKD) document.getElementById('cash-input').value=cashHKD;
   document.getElementById('fx-input').value=usdHkdRate;
 }
 
-// ── CASH ──
 function saveCash(){
   cashHKD=parseFloat(document.getElementById('cash-input').value)||0;
   usdHkdRate=parseFloat(document.getElementById('fx-input').value)||7.78;
@@ -266,7 +266,6 @@ document.getElementById('fx-input').addEventListener('change',function(){
   renderList();
 });
 
-// ── PAGE NAV ──
 function showList(){
   document.getElementById('list-hdr').style.display='';
   document.getElementById('detail-hdr').style.display='none';
@@ -288,7 +287,6 @@ function showDetail(ticker){
   buildDetail(p);
 }
 
-// ── FINNHUB ──
 async function fhQuote(sym){
   var r=await fetch('https://finnhub.io/api/v1/quote?symbol='+encodeURIComponent(sym)+'&token='+FK);
   if(!r.ok) throw new Error(r.status);
@@ -296,17 +294,7 @@ async function fhQuote(sym){
   if(!j.c||j.c===0) throw new Error('no data');
   return {price:j.c, change:+(j.c-j.pc).toFixed(2), pct:+((j.c-j.pc)/j.pc*100).toFixed(2)};
 }
-async function fhCandles(sym){
-  var to=Math.floor(Date.now()/1000);
-  var from=to-30*24*3600;
-  var r=await fetch('https://finnhub.io/api/v1/stock/candle?symbol='+encodeURIComponent(sym)+'&resolution=D&from='+from+'&to='+to+'&token='+FK);
-  if(!r.ok) throw new Error(r.status);
-  var j=await r.json();
-  if(j.s!=='ok'||!j.h||!j.l) throw new Error('no candles');
-  return {monthHigh:+Math.max.apply(null,j.h).toFixed(2), monthLow:+Math.min.apply(null,j.l).toFixed(2)};
-}
 
-// ── LOAD ALL ──
 async function loadAllPrices(){
   document.getElementById('lmsg').textContent='更新股票報價…';
   document.getElementById('lsub').textContent='正在逐一取得即時報價';
@@ -315,19 +303,10 @@ async function loadAllPrices(){
     var p=positions[i];
     document.getElementById('lmsg').textContent='正在取得 '+p.ticker+' ('+(i+1)+'/'+positions.length+')';
     try{
-      var results=await Promise.allSettled([fhQuote(p.ticker),fhCandles(p.ticker)]);
-      if(results[0].status==='fulfilled'){
-        p.price=results[0].value.price;
-        p.change=results[0].value.change;
-        p.pct=results[0].value.pct;
-        p.priceDate=new Date().toLocaleDateString('zh-Hant');
-      }
-      if(results[1].status==='fulfilled'){
-        p.monthHigh=results[1].value.monthHigh;
-        p.monthLow=results[1].value.monthLow;
-      }
-      persist();
-      renderList();
+      var q=await fhQuote(p.ticker);
+      p.price=q.price; p.change=q.change; p.pct=q.pct;
+      p.priceDate=new Date().toLocaleDateString('zh-Hant');
+      persist(); renderList();
     }catch(e){}
   }
   document.getElementById('s-src').textContent=new Date().toLocaleTimeString('zh-Hant',{hour:'2-digit',minute:'2-digit'});
@@ -335,11 +314,9 @@ async function loadAllPrices(){
   document.getElementById('overlay').classList.remove('show');
 }
 
-// ── SIGNAL ──
 function getSignal(p){
-  // Without MA, use price vs cost as simple signal
   if(!p.price) return {pill:'pill-idle',pillTxt:'⏳ 待報價',banner:null};
-  if(!p.cost||p.shares===0) return {pill:'pill-idle',pillTxt:'⬜ 空倉',banner:null};
+  if(!p.cost||!p.shares) return {pill:'pill-idle',pillTxt:'⬜ 空倉',banner:null};
   var pct=(p.price-p.cost)/p.cost*100;
   if(pct>=10) return {pill:'pill-bull',pillTxt:'🔥 盈利中',banner:{title:'🔥 現價高於成本 +'+pct.toFixed(1)+'%',body:'持倉處於盈利狀態。留意止盈目標，不要讓盈利變虧損。',action:'📋 檢查止盈計劃是否已掛單',c:'var(--green)',bg:'#0a2010',abg:'#1a4a25'}};
   if(pct<=-15) return {pill:'pill-bear',pillTxt:'🧊 深度虧損',banner:{title:'🧊 現價低於成本 '+pct.toFixed(1)+'%',body:'持倉處於較大虧損狀態。按照既定戰略執行，勿恐慌割肉。',action:'😴 檢視戰略備忘，執行裝死計劃',c:'var(--red)',bg:'#200a0a',abg:'#3a1010'}};
@@ -347,23 +324,18 @@ function getSignal(p){
   return {pill:'pill-bull',pillTxt:'✅ 小幅盈利',banner:null};
 }
 
-// ── REBALANCE ──
 function calcRebal(p,totalAssetsUSD){
   if(!p.price||!totalAssetsUSD||!p.weight) return null;
-  var targetValueUSD=totalAssetsUSD*(p.weight/100);
-  var currentValueUSD=p.price*(p.shares||0);
-  var targetShares=Math.floor(targetValueUSD/p.price);
+  var targetUSD=totalAssetsUSD*(p.weight/100);
+  var currentUSD=p.price*(p.shares||0);
+  var targetShares=Math.floor(targetUSD/p.price);
   var diff=targetShares-(p.shares||0);
-  return {targetValueUSD:targetValueUSD,currentValueUSD:currentValueUSD,targetShares:targetShares,diff:diff,diffValueUSD:diff*p.price,currentPct:totalAssetsUSD>0?(currentValueUSD/totalAssetsUSD*100):0};
+  return {targetUSD:targetUSD,currentUSD:currentUSD,targetShares:targetShares,diff:diff,diffUSD:diff*p.price,currentPct:totalAssetsUSD>0?(currentUSD/totalAssetsUSD*100):0};
 }
 
-// ── RENDER LIST ──
 function renderList(){
-  var totalMV=0,hasMV=false,totalCost=0;
-  positions.forEach(function(p){
-    if(p.price&&p.shares){totalMV+=p.price*p.shares;hasMV=true;}
-    totalCost+=p.cost*(p.shares||0);
-  });
+  var totalMV=0,hasMV=false;
+  positions.forEach(function(p){if(p.price&&p.shares){totalMV+=p.price*p.shares;hasMV=true;}});
   var cashUSD=cashHKD/usdHkdRate;
   var totalAssetsUSD=cashUSD+totalMV;
   document.getElementById('s-mv-hkd').textContent=hasMV?'HK$'+Math.round(totalMV*usdHkdRate).toLocaleString():'--';
@@ -373,39 +345,51 @@ function renderList(){
   var el=document.getElementById('pos-list');
   if(!positions.length){el.innerHTML='<div style="text-align:center;color:var(--muted);padding:40px">暫無持倉<br>點右下角＋新增</div>';return;}
 
-  el.innerHTML=positions.map(function(p){
-    var price=p.price,shares=p.shares||0,cost=p.cost;
+  var html='';
+  positions.forEach(function(p){
+    var price=p.price, shares=p.shares||0, cost=p.cost;
     var pnl=price&&shares&&cost?(price-cost)*shares:null;
     var pnlPct=pnl&&cost*shares?(pnl/(cost*shares)*100):null;
     var sig=getSignal(p);
     var rb=calcRebal(p,totalAssetsUSD);
     var pc=price&&cost?(price>=cost?'c-green':'c-red'):'';
-    var chgHtml=p.change!=null?'<span class="'+(p.change>=0?'c-green':'c-red')+'">'+(p.change>=0?'+':'')+p.change+' ('+(p.pct>=0?'+':'')+p.pct+'%)</span>':'';
 
-    // Range strip
-    var rs='';
-    var mh=p.monthHigh,ml=p.monthLow;
-    if(mh||ml){
-      var pos=(mh&&ml&&price)?Math.min(100,Math.max(0,(price-ml)/(mh-ml)*100)).toFixed(0):null;
-      var dHi=price&&mh?((price-mh)/mh*100).toFixed(1):null;
-      var dLo=price&&ml?((price-ml)/ml*100).toFixed(1):null;
-      rs='<div class="range-strip">'
-        +'<div class="rc"><div class="rc-lbl">📉 月低</div><div class="rc-val c-red">'+(ml?'$'+ml:'--')+'</div><div class="rc-d '+(dLo!=null?'c-green':'')+'">'+(dLo!=null?'+'+dLo+'%':'')+'</div></div>'
-        +'<div class="rc rc-mid"><div class="rc-lbl" style="color:var(--blue)">現價位置</div><div class="rc-val">'+(price?'$'+price.toFixed(2):'--')+'</div><div class="rc-d">'+(pos!=null?'區間 '+pos+'%':'')+'</div></div>'
-        +'<div class="rc"><div class="rc-lbl">📈 月高</div><div class="rc-val c-green">'+(mh?'$'+mh:'--')+'</div><div class="rc-d '+(dHi!=null?'c-red':'')+'">'+(dHi!=null?dHi+'%':'')+'</div></div>'
-        +'</div>';
-    } else {
-      rs='<div class="range-strip"><div style="text-align:center;width:100%;font-size:0.7rem;color:var(--muted)">月高低位載入中…</div></div>';
-    }
+    // Key levels strip
+    var tpP=p.tpPct&&cost?+(cost*(1+p.tpPct/100)).toFixed(2):null;
+    var dipP=p.dipPct&&cost?+(cost*(1-p.dipPct/100)).toFixed(2):null;
+    var tpDiff=tpP&&price?(tpP-price):null;
+    var tpDiffPct=tpDiff&&price?(tpDiff/price*100):null;
+    var dipDiff=dipP&&price?(price-dipP):null;
+    var dipDiffPct=dipDiff&&price?(dipDiff/price*100):null;
 
-    // Rebal
-    var rebalHtml='';
+    var klHtml='<div class="kl-strip">'
+      +'<div class="kl">'
+        +'<div class="kl-lbl">🎯 止盈目標</div>'
+        +'<div class="kl-val '+(tpP?'c-green':'c-muted')+'">'+(tpP?'$'+tpP:'長線不賣')+'</div>'
+        +'<div class="kl-d '+(tpDiffPct!=null?'c-yellow':'')+'">'+(tpDiffPct!=null?'差 +$'+tpDiff.toFixed(1)+' (+'+tpDiffPct.toFixed(1)+'%)':'')+'</div>'
+      +'</div>'
+      +'<div class="kl kl-mid">'
+        +'<div class="kl-lbl" style="color:var(--blue)">現價</div>'
+        +'<div class="kl-val '+(price?pc:'c-muted')+'">'+(price?'$'+price.toFixed(2):'--')+'</div>'
+        +'<div class="kl-d '+(pnlPct!=null?(pnlPct>=0?'c-green':'c-red'):'')+'">'+(pnlPct!=null?(pnlPct>=0?'+':'')+pnlPct.toFixed(1)+'%':'')+'</div>'
+      +'</div>'
+      +'<div class="kl">'
+        +'<div class="kl-lbl">🛒 加倉位</div>'
+        +'<div class="kl-val '+(dipP?'c-yellow':'c-muted')+'">'+(dipP?'$'+dipP:'不設加倉')+'</div>'
+        +'<div class="kl-d '+(dipDiffPct!=null?(dipDiffPct>=0?'c-muted':'c-yellow'):'')+'">'+(dipDiffPct!=null?(dipDiffPct>=0?'差 -$'+dipDiff.toFixed(1)+' (-'+dipDiffPct.toFixed(1)+'%)':'已觸發！'):'')+'</div>'
+      +'</div>'
+    +'</div>';
+
+    // Rebal row
+    var rbHtml='';
     if(rb){
-      rebalHtml='<div class="rebal-row">'
-        +'<div class="rb-cell"><div class="rb-lbl">目標股數</div><div class="rb-val">'+rb.targetShares+'股</div><div class="rb-sub">HK$'+Math.round(rb.targetValueUSD*usdHkdRate).toLocaleString()+'</div></div>'
-        +'<div class="rb-cell"><div class="rb-lbl">現持股數</div><div class="rb-val">'+shares+'股</div><div class="rb-sub">'+(rb.currentValueUSD?'HK$'+Math.round(rb.currentValueUSD*usdHkdRate).toLocaleString():'--')+'</div></div>'
-        +'<div class="rb-cell"><div class="rb-lbl">差額</div><div class="rb-val '+(rb.diff>0?'c-green':rb.diff<0?'c-red':'c-muted')+'">'+(rb.diff>0?'+':'')+rb.diff+'股</div><div class="rb-sub '+(rb.diff>0?'c-green':rb.diff<0?'c-red':'c-muted')+'">HK$'+(rb.diff>=0?'+':'')+Math.round(rb.diffValueUSD*usdHkdRate).toLocaleString()+'</div></div>'
-        +'</div>';
+      rbHtml='<div class="rb-row">'
+        +'<div class="rb-cell"><div class="rb-lbl">目標股數</div><div class="rb-val">'+rb.targetShares+'股</div><div class="rb-sub">HK$'+Math.round(rb.targetUSD*usdHkdRate).toLocaleString()+'</div></div>'
+        +'<div class="rb-cell"><div class="rb-lbl">現持股數</div><div class="rb-val">'+shares+'股</div><div class="rb-sub">'+(rb.currentUSD?'HK$'+Math.round(rb.currentUSD*usdHkdRate).toLocaleString():'--')+'</div></div>'
+        +'<div class="rb-cell"><div class="rb-lbl">差額</div>'
+        +'<div class="rb-val '+(rb.diff>0?'c-green':rb.diff<0?'c-red':'c-muted')+'">'+(rb.diff>0?'+':'')+rb.diff+'股</div>'
+        +'<div class="rb-sub '+(rb.diff>0?'c-green':rb.diff<0?'c-red':'c-muted')+'">HK$'+(rb.diff>=0?'+':'')+Math.round(rb.diffUSD*usdHkdRate).toLocaleString()+'</div>'
+        +'</div></div>';
     }
 
     // Action badge
@@ -413,34 +397,41 @@ function renderList(){
     if(rb){
       if(Math.abs(rb.diff)>=1){
         var isBuy=rb.diff>0;
-        actHtml='<div class="pos-action"><span class="act-badge '+(isBuy?'act-buy':'act-sell')+'">'+(isBuy?'🛒 買入':'💰 沽出')+' '+Math.abs(rb.diff)+'股 · HK$'+Math.round(Math.abs(rb.diffValueUSD*usdHkdRate)).toLocaleString()+'</span></div>';
+        actHtml='<div class="act-row"><span class="act-badge '+(isBuy?'act-buy':'act-sell')+'">'+(isBuy?'🛒 買入':'💰 沽出')+' '+Math.abs(rb.diff)+'股 · HK$'+Math.round(Math.abs(rb.diffUSD*usdHkdRate)).toLocaleString()+'</span></div>';
       } else {
-        actHtml='<div class="pos-action"><span class="act-badge act-hold">✅ 權重平衡</span></div>';
+        actHtml='<div class="act-row"><span class="act-badge act-hold">✅ 權重平衡</span></div>';
       }
     } else if(!cashHKD){
-      actHtml='<div class="pos-action"><span class="act-badge act-cash">💵 輸入港元現金以計算再平衡</span></div>';
+      actHtml='<div class="act-row"><span class="act-badge act-cash">💵 輸入港元現金以計算再平衡</span></div>';
     }
 
-    return '<div class="pos-card">'
-      +'<div class="pos-header" onclick="showDetail(\''+p.ticker+'\')">'
-      +'<div><div class="pos-ticker">'+p.ticker+(shares===0?'<span style="font-size:0.6rem;color:var(--muted);font-weight:400">空倉</span>':'')+'<span class="sig-pill '+sig.pill+'">'+sig.pillTxt+'</span></div>'
-      +'<div class="pos-name">'+p.name+'</div>'
-      +'<div class="pos-wt">'+(p.weight?'目標 '+p.weight+'% · 現 '+(rb?rb.currentPct.toFixed(1)+'%':'--'):'')+'</div></div>'
-      +'<div class="pos-right"><div class="pos-price '+pc+'">'+(price?'$'+price.toFixed(2):'--')+'</div>'
-      +'<div class="pos-price-sub">'+shares+'股 · 成本$'+(cost?cost.toFixed(2):'--')+'</div>'
-      +'<div class="pos-price-sub">'+chgHtml+'</div>'
-      +'<div class="pos-price-sub '+(pnl==null?'':pnl>=0?'c-green':'c-red')+'">'+(pnlPct!=null?(pnlPct>=0?'+':'')+pnlPct.toFixed(1)+'%':'')+'</div>'
-      +'</div></div>'
+    var chgHtml=p.change!=null?'<span class="'+(p.change>=0?'c-green':'c-red')+'">'+(p.change>=0?'+':'')+p.change+' ('+(p.pct>=0?'+':'')+p.pct+'%)</span>':'';
+
+    html+='<div class="pos-card">'
+      +'<div class="pos-hdr" onclick="showDetail(\''+p.ticker+'\')">'
+        +'<div>'
+          +'<div class="pos-ticker">'+p.ticker+(shares===0?'<span style="font-size:0.6rem;color:var(--muted);font-weight:400"> 空倉</span>':'')
+            +'<span class="sig-pill '+sig.pill+'">'+sig.pillTxt+'</span></div>'
+          +'<div class="pos-name">'+p.name+'</div>'
+          +'<div class="pos-wt">'+(p.weight?'目標 '+p.weight+'% · 現 '+(rb?rb.currentPct.toFixed(1)+'%':'--'):'')+'</div>'
+        +'</div>'
+        +'<div class="pos-right">'
+          +'<div class="pos-price '+(price?pc:'')+'">'+(price?'$'+price.toFixed(2):'--')+'</div>'
+          +'<div class="pos-sub">'+shares+'股 · 成本$'+(cost?cost.toFixed(2):'--')+'</div>'
+          +'<div class="pos-sub">'+chgHtml+'</div>'
+        +'</div>'
+      +'</div>'
       +actHtml
-      +rs
-      +rebalHtml
-      +'</div>';
-  }).join('');
+      +klHtml
+      +rbHtml
+    +'</div>';
+  });
+  el.innerHTML=html;
 }
 
-// ── DETAIL ──
 function buildDetail(p){
-  var price=p.price,shares=p.shares||0,cost=p.cost,tpPct=p.tpPct,dipPct=p.dipPct,slPct=p.slPct,note=p.note,weight=p.weight,change=p.change,pct=p.pct,mh=p.monthHigh,ml=p.monthLow;
+  var price=p.price,shares=p.shares||0,cost=p.cost;
+  var tpPct=p.tpPct,dipPct=p.dipPct,slPct=p.slPct,note=p.note;
   var mv=price&&shares?price*shares:null;
   var tc=cost*shares;
   var pnl=mv&&tc?mv-tc:null;
@@ -451,7 +442,6 @@ function buildDetail(p){
   var sig=getSignal(p);
   var h='';
 
-  // Signal banner
   if(sig.banner){
     var b=sig.banner;
     h+='<div class="sig-banner" style="background:'+b.bg+';border-color:'+b.c+'">'
@@ -460,60 +450,54 @@ function buildDetail(p){
       +'<span class="sig-action" style="background:'+b.abg+';color:'+b.c+'">'+b.action+'</span></div>';
   }
 
-  // Month range
-  if(mh||ml){
-    var dHi=price&&mh?((price-mh)/mh*100).toFixed(1):null;
-    var dLo=price&&ml?((price-ml)/ml*100).toFixed(1):null;
-    var pos=(mh&&ml&&price)?Math.min(100,Math.max(0,(price-ml)/(mh-ml)*100)).toFixed(0):null;
-    h+='<div class="g2">'
-      +'<div class="met" style="border-color:#3a1010"><div class="met-lbl">📉 月內低位</div><div class="met-val c-red">'+(ml?'$'+ml:'--')+'</div><div class="met-sub">'+(dLo!=null?'現價高出 +'+dLo+'%':'')+'</div></div>'
-      +'<div class="met" style="border-color:#1a4a25"><div class="met-lbl">📈 月內高位</div><div class="met-val c-green">'+(mh?'$'+mh:'--')+'</div><div class="met-sub">'+(dHi!=null?'現價距高位 '+dHi+'%':'')+'</div></div>'
-      +'</div>';
-    if(pos!=null){
-      var barColor=pos>70?'var(--green)':pos<30?'var(--red)':'var(--blue)';
-      h+='<div style="margin:-4px 0 10px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px">'
-        +'<div style="font-size:0.65rem;color:var(--muted);margin-bottom:6px">月內價格區間位置</div>'
-        +'<div class="prog-track"><div class="prog-fill" style="width:'+pos+'%;background:'+barColor+'"></div></div>'
-        +'<div style="display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted)">'
-        +'<span>低 $'+ml+'</span><span style="color:var(--text);font-weight:700">'+pos+'%</span><span>高 $'+mh+'</span></div></div>';
-    }
-  }
-
-  // Metrics
   var mvHKD=mv?mv*usdHkdRate:null;
   h+='<div class="g2">'
-    +'<div class="met"><div class="met-lbl">現價</div><div class="met-val '+(price&&cost?(price>=cost?'c-green':'c-red'):'')+'">'+(price?'$'+price.toFixed(2):'--')+'</div><div class="met-sub">'+(change!=null?(change>=0?'+':'')+change+' ('+pct+'%)':'')+'</div></div>'
-    +'<div class="met"><div class="met-lbl">持倉損益</div><div class="met-val '+(pnl==null?'':pnl>=0?'c-green':'c-red')+'">'+(pnlPct!=null?(pnlPct>=0?'+':'')+pnlPct.toFixed(2)+'%':'--')+'</div><div class="met-sub">'+(pnl!=null?'US$'+(pnl>=0?'+':'')+pnl.toFixed(0):'--')+'</div></div>'
-    +'<div class="met"><div class="met-lbl">持股市值</div><div class="met-val c-blue">'+(mvHKD?'HK$'+Math.round(mvHKD).toLocaleString():'--')+'</div><div class="met-sub">'+(mv?'≈ US$'+mv.toFixed(0):'')+'</div></div>'
-    +'<div class="met"><div class="met-lbl">距止盈</div><div class="met-val '+(tpPrice&&price?(price>=tpPrice?'c-green':'c-yellow'):'')+'">'+(tpPrice&&price?((tpPrice-price)/price*100>=0?'+':'')+((tpPrice-price)/price*100).toFixed(1)+'%':'長線不賣')+'</div><div class="met-sub">'+(tpPrice?'目標 $'+tpPrice:'--')+'</div></div>'
+    +'<div class="met"><div class="met-lbl">現價</div>'
+    +'<div class="met-val '+(price&&cost?(price>=cost?'c-green':'c-red'):'')+'">'+(price?'$'+price.toFixed(2):'--')+'</div>'
+    +'<div class="met-sub">'+(p.change!=null?(p.change>=0?'+':'')+p.change+' ('+p.pct+'%)':'')+'</div></div>'
+    +'<div class="met"><div class="met-lbl">持倉損益</div>'
+    +'<div class="met-val '+(pnl==null?'':pnl>=0?'c-green':'c-red')+'">'+(pnlPct!=null?(pnlPct>=0?'+':'')+pnlPct.toFixed(2)+'%':'--')+'</div>'
+    +'<div class="met-sub">'+(pnl!=null?'US$'+(pnl>=0?'+':'')+pnl.toFixed(0):'--')+'</div></div>'
+    +'<div class="met"><div class="met-lbl">持股市值</div>'
+    +'<div class="met-val c-blue">'+(mvHKD?'HK$'+Math.round(mvHKD).toLocaleString():'--')+'</div>'
+    +'<div class="met-sub">'+(mv?'≈ US$'+mv.toFixed(0):'')+'</div></div>'
+    +'<div class="met"><div class="met-lbl">成本價</div>'
+    +'<div class="met-val">'+(cost?'$'+cost.toFixed(3):'--')+'</div>'
+    +'<div class="met-sub">'+shares+'股</div></div>'
     +'</div>';
 
-  // TP/DIP/SL
   h+='<div class="tpsl-box"><div class="tpsl-lbl">🎯 關鍵價位</div>';
   if(tpPrice){
     var rng=tpPrice-cost,prog=Math.min(100,Math.max(0,price?(price-cost)/rng*100:0));
     var fc=prog>=100?'var(--green)':prog>=50?'var(--yellow)':'var(--blue)';
+    var tpDiff=tpPrice-price,tpDiffPct=price?(tpDiff/price*100):0;
     h+='<div class="prog-track"><div class="prog-fill" style="width:'+prog.toFixed(0)+'%;background:'+fc+'"></div></div>'
       +'<div class="prog-labels"><span>成本 $'+cost.toFixed(2)+'</span><span>'+prog.toFixed(0)+'%</span><span>+'+tpPct+'% $'+tpPrice+'</span></div>'
-      +'<div class="tpsl-r"><span class="tpsl-k">🎯 止盈 TARGET</span><span class="tpsl-v c-green">$'+tpPrice+'<span class="tpsl-pct">+'+tpPct+'%</span></span></div>';
+      +'<div class="tpsl-r"><span class="tpsl-k">🎯 止盈 TARGET</span><span class="tpsl-v c-green">$'+tpPrice+'<span class="tpsl-pct">+'+tpPct+'%</span></span></div>'
+      +'<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem"> 　距止盈</span><span class="tpsl-v c-yellow">+$'+tpDiff.toFixed(2)+' (+'+tpDiffPct.toFixed(1)+'%)</span></div>';
   } else {
     h+='<div class="tpsl-r"><span class="tpsl-k">🎯 止盈</span><span class="tpsl-v c-muted">長線不賣</span></div>';
   }
   if(dipPrice){
-    var dtd=price?((price-dipPrice)/price*100):null;
+    var dipDiff=price-dipPrice,dipDiffPct=price?(dipDiff/price*100):0;
     h+='<div class="tpsl-r"><span class="tpsl-k">🛒 加倉 BUY DIP</span><span class="tpsl-v c-yellow">$'+dipPrice+'<span class="tpsl-pct">-'+dipPct+'%</span></span></div>';
-    if(dtd!=null) h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem">　距加倉位</span><span class="tpsl-v '+(dtd>=0?'c-muted':'c-yellow')+'">'+(dtd>=0?'+':'')+dtd.toFixed(1)+'%</span></div>';
+    if(dipDiff>=0){
+      h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--muted);font-size:0.68rem"> 　距加倉位</span><span class="tpsl-v c-muted">還差 -$'+dipDiff.toFixed(2)+' (-'+dipDiffPct.toFixed(1)+'%)</span></div>';
+    } else {
+      h+='<div class="tpsl-r"><span class="tpsl-k" style="color:var(--yellow);font-size:0.68rem"> 　⚠️ 已低於加倉位！</span><span class="tpsl-v c-yellow">$'+Math.abs(dipDiff).toFixed(2)+' 低於觸發點</span></div>';
+    }
   } else {
     h+='<div class="tpsl-r"><span class="tpsl-k">🛒 加倉</span><span class="tpsl-v c-muted">不設加倉</span></div>';
   }
-  if(slPrice) h+='<div class="tpsl-r"><span class="tpsl-k">🛡 止蝕</span><span class="tpsl-v c-red">$'+slPrice+'<span class="tpsl-pct">-'+slPct+'%</span></span></div>';
-  else h+='<div class="tpsl-r"><span class="tpsl-k">🛡 止蝕</span><span class="tpsl-v c-muted">裝死不割</span></div>';
+  if(slPrice){
+    h+='<div class="tpsl-r"><span class="tpsl-k">🛡 止蝕</span><span class="tpsl-v c-red">$'+slPrice+'<span class="tpsl-pct">-'+slPct+'%</span></span></div>';
+  } else {
+    h+='<div class="tpsl-r"><span class="tpsl-k">🛡 止蝕</span><span class="tpsl-v c-muted">裝死不割</span></div>';
+  }
   h+='</div>';
 
-  // Strategy note
   if(note) h+='<div class="note-box"><div class="note-lbl">📝 個人戰略備忘</div><div class="note-txt">'+note+'</div></div>';
 
-  // Price Alert Calculator
   var baseVal=(price||cost||0).toFixed(2);
   h+='<div class="alert-box">'
     +'<div class="alert-lbl">🧮 價格警戒計算器</div>'
@@ -524,32 +508,29 @@ function buildDetail(p){
     +'<div class="alert-result" id="ac-result"><span style="color:var(--muted);font-size:0.75rem">輸入百分比後自動計算目標價…</span></div>'
     +'</div>';
 
-  h+='<div class="disclaimer">⚠️ 現價及月高低位來自 Finnhub。僅供參考。</div>';
+  h+='<div class="disclaimer">⚠️ 現價來自 Finnhub。僅供參考，不構成投資建議。</div>';
   document.getElementById('d-body').innerHTML=h;
   document.getElementById('d-body').scrollTop=0;
 }
 
-// ── PRICE ALERT CALC ──
 function calcAlert(){
   var base=parseFloat(document.getElementById('ac-base').value)||0;
   var pct=parseFloat(document.getElementById('ac-pct').value);
   var el=document.getElementById('ac-result');
-  if(!el) return;
-  if(!base||isNaN(pct)){
-    el.innerHTML='<span style="color:var(--muted);font-size:0.75rem">輸入百分比後自動計算目標價…</span>';
+  if(!el||!base||isNaN(pct)){
+    if(el) el.innerHTML='<span style="color:var(--muted);font-size:0.75rem">輸入百分比後自動計算目標價…</span>';
     return;
   }
   var target=+(base*(1+pct/100)).toFixed(2);
   var isUp=pct>=0;
   var color=isUp?'var(--green)':'var(--red)';
-  el.innerHTML='<div class="alert-row"><span class="alert-key">起點</span><span class="alert-val">$'+base.toFixed(2)+'</span></div>'
-    +'<div class="alert-row"><span class="alert-key">變動</span><span class="alert-val" style="color:'+color+'">'+(isUp?'+':'')+pct+'% '+(isUp?'↑':'↓')+'</span></div>'
-    +'<div class="alert-row" style="margin-top:4px;padding-top:6px;border-top:1px solid var(--border)">'
-    +'<span class="alert-key" style="font-size:0.8rem;font-weight:700">目標價</span>'
-    +'<span class="alert-val" style="color:'+color+';font-size:1.15rem">$'+target+'</span></div>';
+  el.innerHTML='<div class="alert-row"><span style="color:var(--muted);font-size:0.75rem">起點</span><span style="font-weight:700">$'+base.toFixed(2)+'</span></div>'
+    +'<div class="alert-row"><span style="color:var(--muted);font-size:0.75rem">變動</span><span style="font-weight:700;color:'+color+'">'+(isUp?'+':'')+pct+'% '+(isUp?'↑':'↓')+'</span></div>'
+    +'<div class="alert-row" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">'
+    +'<span style="font-size:0.8rem;font-weight:700">目標價</span>'
+    +'<span style="font-weight:800;font-size:1.2rem;color:'+color+'">$'+target+'</span></div>';
 }
 
-// ── MODAL ──
 function openAddModal(){
   editingTicker=null;
   document.getElementById('modal-title').textContent='新增持倉';
@@ -588,9 +569,9 @@ function savePosModal(){
   var note=document.getElementById('f-note').value.trim();
   if(editingTicker){
     var p=positions.find(function(x){return x.ticker===editingTicker;});
-    Object.assign(p,{ticker:ticker,name:name,shares:shares,cost:cost,weight:weight,tpPct:tpPct,dipPct:dipPct,slPct:slPct,note:note});
+    p.ticker=ticker;p.name=name;p.shares=shares;p.cost=cost;p.weight=weight;p.tpPct=tpPct;p.dipPct=dipPct;p.slPct=slPct;p.note=note;
   } else {
-    positions.push({ticker:ticker,name:name,shares:shares,cost:cost,weight:weight,tpPct:tpPct,dipPct:dipPct,slPct:slPct,note:note,price:null,change:null,pct:null,monthHigh:null,monthLow:null,priceDate:null});
+    positions.push({ticker:ticker,name:name,shares:shares,cost:cost,weight:weight,tpPct:tpPct,dipPct:dipPct,slPct:slPct,note:note,price:null,change:null,pct:null,priceDate:null});
   }
   persist();closeModal();renderList();
 }
@@ -600,7 +581,6 @@ function deletePosModal(){
   persist();closeModal();showList();
 }
 
-// INIT
 loadStorage();
 renderList();
 loadAllPrices();
