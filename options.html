@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="期權策略">
+<title>期權策略</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#f0883e;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Display',sans-serif;overscroll-behavior:none;}
+body{display:flex;flex-direction:column;padding:env(safe-area-inset-top,16px) 0 env(safe-area-inset-bottom,16px);}
+
+.hdr{padding:12px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.hdr-left{display:flex;align-items:center;gap:8px;}
+.back-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.back-btn:active{opacity:0.7;}
+.hdr-title{font-size:1.05rem;font-weight:700;}
+.hdr-title span{color:var(--blue);}
+.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--blue);padding:7px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.icon-btn:active{opacity:0.7;}
+
+.status-bar{display:flex;align-items:center;justify-content:space-between;padding:4px 16px 8px;flex-shrink:0;}
+.mkt-badge{font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.mb-open{background:#1a4a25;color:var(--green);}
+.mb-closed{background:#2a1a1a;color:var(--red);}
+.mb-pre{background:#2a2a10;color:var(--yellow);}
+.upd-time{font-size:0.66rem;color:var(--muted);}
+
+.tabs-wrap{padding:0 16px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-shrink:0;}
+.tabs-wrap::-webkit-scrollbar{display:none;}
+.tabs{display:flex;gap:8px;width:max-content;}
+.etf-tab{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:22px;font-size:0.8rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.etf-tab.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.etf-tab .sub{font-size:0.63rem;display:block;font-weight:400;margin-top:1px;opacity:0.85;}
+
+.scroll-body{flex:1;overflow-y:auto;padding:0 14px 20px;-webkit-overflow-scrolling:touch;}
+
+.opt-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.o-metric{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 14px;}
+.o-mlbl{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
+.o-mval{font-size:1.9rem;font-weight:800;line-height:1;}
+.o-mchg{font-size:0.7rem;color:var(--muted);margin-top:4px;}
+
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 14px;}
+.price-card.editing{border-color:var(--blue);box-shadow:0 0 10px rgba(88,166,255,0.15);}
+.price-card.manual{border-color:var(--yellow);}
+.price-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.edit-btn{background:transparent;border:1px solid var(--border);color:var(--muted);font-size:0.65rem;padding:4px 8px;border-radius:8px;cursor:pointer;}
+.edit-btn.on{border-color:var(--blue);color:var(--blue);}
+.edit-row{display:flex;gap:6px;margin-top:8px;align-items:center;}
+.p-input{background:var(--bg);border:1px solid var(--blue);color:var(--text);font-size:1.1rem;font-weight:700;padding:6px 10px;border-radius:10px;width:100%;outline:none;}
+.ok-btn{background:var(--blue);color:#fff;border:none;padding:7px 14px;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;}
+.x-btn{background:var(--card);color:var(--muted);border:1px solid var(--border);padding:7px 10px;border-radius:10px;font-size:0.8rem;cursor:pointer;}
+.src-tag{font-size:0.6rem;margin-top:4px;display:flex;align-items:center;gap:4px;}
+.t-auto{color:#4d9e6a;}.t-manual{color:var(--yellow);}.t-stale{color:var(--red);}
+
+.src-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.src-cell{font-size:0.6rem;color:#4d5562;padding:2px 4px;line-height:1.5;}
+
+.sc-banner{border-radius:14px;padding:13px 15px;margin-bottom:10px;border:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.sc-name{font-size:0.95rem;font-weight:700;}
+.sc-state{font-size:0.73rem;margin-top:4px;line-height:1.45;color:#c9d1d9;}
+.sc-strat{font-size:0.7rem;margin-top:5px;color:var(--muted);font-style:italic;}
+.sc-icon{font-size:1.7rem;flex-shrink:0;}
+
+.sec-lbl{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px;padding-left:2px;}
+
+.sk-card{border-radius:14px;padding:15px;margin-bottom:10px;border:1px solid transparent;}
+.sk-pri{background:#1a0a09;border-color:var(--red);}
+.sk-sec{background:#150d05;border-color:var(--orange);}
+.sk-grn{background:#0a1a0d;border-color:var(--green);}
+.sk-yel{background:#1a1500;border-color:var(--yellow);}
+.sk-tag{font-size:0.66rem;font-weight:700;text-transform:uppercase;padding:3px 10px;border-radius:10px;display:inline-block;margin-bottom:9px;}
+.st-r{background:#3a1010;color:var(--red);}
+.st-o{background:#2a1800;color:var(--orange);}
+.st-g{background:#0d2e14;color:var(--green);}
+.st-y{background:#2a2000;color:var(--yellow);}
+.sk-prices{font-size:1.8rem;font-weight:800;color:#f0f6fc;margin-bottom:5px;}
+.sk-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.sk-pct{font-size:0.78rem;color:var(--muted);}
+.sk-delta{font-size:0.78rem;font-weight:700;}
+.dw{color:var(--red);}.dok{color:var(--green);}.dy{color:var(--yellow);}
+.sk-note{font-size:0.73rem;color:#8b949e;margin-top:7px;line-height:1.5;}
+
+.lots-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 15px;margin-bottom:10px;}
+.lots-hdr{font-size:0.72rem;color:var(--muted);margin-bottom:9px;line-height:1.5;}
+.lots-row{display:flex;gap:8px;}
+.lot{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;}
+.lot.rec{border-color:var(--red);background:#2a0a08;}
+.lot-n{font-size:1.25rem;font-weight:800;}
+.lot.rec .lot-n{color:var(--red);}
+.lot-l{font-size:0.6rem;color:var(--muted);margin-top:3px;}
+.lot.rec .lot-l{color:var(--red);}
+
+.ref-box{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+.ref-hr{display:flex;padding:8px 13px;background:#21262d;gap:8px;}
+.ref-hc{font-size:0.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;}
+.ref-r{display:flex;align-items:center;padding:10px 13px;border-bottom:1px solid var(--border);gap:8px;}
+.ref-r:last-child{border-bottom:none;}
+.ref-r.ar{background:#1a1a2e;}
+.ref-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.ref-rng{font-size:0.75rem;flex:1.3;}
+.ref-dst{font-size:0.72rem;color:var(--muted);flex:1;text-align:center;}
+.ref-lt{font-size:0.72rem;color:var(--muted);flex:0.9;text-align:right;}
+.ref-am{font-size:0.6rem;color:var(--blue);font-weight:700;}
+
+.loading-overlay{display:none;position:fixed;inset:0;background:rgba(13,17,23,0.9);align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:300;}
+.loading-overlay.show{display:flex;}
+.spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:0.88rem;color:var(--muted);}
+
+.disclaimer{font-size:0.6rem;color:#4d5562;text-align:center;line-height:1.6;padding:4px 10px 8px;}
+.c-green{color:var(--green);}.c-red{color:var(--red);}.c-yellow{color:var(--yellow);}.c-blue{color:var(--blue);}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="overlay">
+  <div class="spinner"></div>
+  <div class="loading-text">抓取最新數據…</div>
+</div>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <a class="back-btn" href="index.html">←</a>
+    <div class="hdr-title">📊 <span id="o-ticker">QQQ</span> 期權建議</div>
+  </div>
+  <button class="icon-btn" onclick="loadData()">🔄 更新</button>
+</div>
+
+<div class="status-bar">
+  <span id="mkt-badge" class="mkt-badge mb-closed">⏸ 休市</span>
+  <span id="upd-time" class="upd-time">尚未載入</span>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div class="scroll-body">
+  <div class="opt-metrics">
+    <div class="o-metric">
+      <div class="o-mlbl" id="vol-lbl">VXN 波動指數</div>
+      <div class="o-mval" id="vix-val">--</div>
+      <div class="o-mchg" id="vix-chg">--</div>
+    </div>
+    <div class="price-card" id="price-card">
+      <div class="o-mlbl" id="price-lbl">QQQ 現價</div>
+      <div class="price-top">
+        <div>
+          <div class="o-mval c-blue" id="etf-val">--</div>
+          <div class="o-mchg" id="etf-chg">--</div>
+          <div class="src-tag">
+            <span id="src-dot">⬤</span>
+            <span id="src-txt" class="t-stale">載入中</span>
+          </div>
+        </div>
+        <button class="edit-btn" id="edit-btn" onclick="toggleEdit()">✏️ 修改</button>
+      </div>
+      <div class="edit-row" id="edit-row" style="display:none">
+        <input class="p-input" id="p-input" type="number" step="0.01" placeholder="輸入現價…" inputmode="decimal">
+        <button class="ok-btn" onclick="confirmManual()">✓</button>
+        <button class="x-btn" onclick="cancelEdit()">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="src-row">
+    <div class="src-cell" id="vol-src">來源：Finnhub / CBOE ^VXN<br>即時報價</div>
+    <div class="src-cell" id="etf-src">來源：Finnhub / Nasdaq<br>即時報價（finnhub.io）</div>
+  </div>
+
+  <div class="sc-banner" id="sc-banner">
+    <div style="flex:1">
+      <div class="sc-name" id="sc-name">計算中…</div>
+      <div class="sc-state" id="sc-state">--</div>
+      <div class="sc-strat" id="sc-strat">--</div>
+    </div>
+    <div class="sc-icon" id="sc-icon">⏳</div>
+  </div>
+
+  <div id="content"></div>
+  <div class="disclaimer">⚠️ 本工具僅供參考，不構成投資建議。期權交易涉及重大風險，請自行評估。</div>
+</div>
+
+<script>
+const FK = 'd8imcrhr01qmfrvhpv3gd8imcrhr01qmfrvhpv40';
+const ETFS = [
+  {ticker:'QQQ', name:'納指100', useVXN:true},
+  {ticker:'VOO', name:'Vanguard', useVXN:false},
+];
+let curTicker='QQQ', sharedVXN=null, sharedVIX=null, curVol=null, curEtf=null, isManual=false, cache={};
+
+// ── TABS ──
+const tabsEl = document.getElementById('tabs');
+ETFS.forEach(e => {
+  const b = document.createElement('button');
+  b.className = 'etf-tab' + (e.ticker==='QQQ' ? ' active' : '');
+  b.innerHTML = `${e.ticker}<span class="sub">${e.name}</span>`;
+  b.onclick = () => switchETF(e.ticker);
+  b.id = 'tab-' + e.ticker;
+  tabsEl.appendChild(b);
+});
+
+function isVXN(){ return ETFS.find(e=>e.ticker===curTicker)?.useVXN; }
+
+function switchETF(t){
+  curTicker=t; isManual=false; cancelEdit();
+  document.querySelectorAll('.etf-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.getElementById('o-ticker').textContent=t;
+  document.getElementById('price-lbl').textContent=t+' 現價';
+  document.getElementById('price-card').classList.remove('manual');
+  const vxn=isVXN();
+  document.getElementById('vol-lbl').textContent=vxn?'VXN 波動指數':'VIX 恐慌指數';
+  document.getElementById('vol-src').innerHTML=vxn?'來源：Finnhub/CBOE ^VXN<br>即時報價':'來源：Finnhub/CBOE ^VIX<br>即時報價';
+  document.getElementById('etf-src').innerHTML='來源：Finnhub/Nasdaq<br>即時報價';
+  const c=cache[t];
+  if(c && Date.now()-c.ts<300000){
+    const v=vxn?sharedVXN:sharedVIX;
+    curVol=v; curEtf=c.price;
+    document.getElementById('vix-val').textContent=v.toFixed(2);
+    document.getElementById('vix-val').className='o-mval '+(v<(vxn?16:13)?'c-green':v<=(vxn?22:18)?'c-yellow':'c-red');
+    document.getElementById('vix-chg').textContent=(c.vChg>=0?'+':'')+c.vChg.toFixed(2)+' 今日';
+    document.getElementById('etf-val').textContent='$'+c.price.toFixed(2);
+    document.getElementById('etf-chg').textContent=(c.change>=0?'+':'')+c.change.toFixed(2)+' 今日';
+    setSrc('auto'); renderContent(v,c.price);
+  } else { loadData(); }
+}
+
+// ── MANUAL PRICE EDIT ──
+function toggleEdit(){
+  const r=document.getElementById('edit-row'),b=document.getElementById('edit-btn'),i=document.getElementById('p-input');
+  if(r.style.display==='none'){
+    r.style.display='flex'; b.textContent='取消'; b.classList.add('on');
+    document.getElementById('price-card').classList.add('editing');
+    i.value=curEtf?curEtf.toFixed(2):''; setTimeout(()=>i.focus(),50);
+  } else { cancelEdit(); }
+}
+function cancelEdit(){
+  document.getElementById('edit-row').style.display='none';
+  document.getElementById('edit-btn').textContent='✏️ 修改';
+  document.getElementById('edit-btn').classList.remove('on');
+  document.getElementById('price-card').classList.remove('editing');
+}
+function confirmManual(){
+  const v=parseFloat(document.getElementById('p-input').value);
+  if(isNaN(v)||v<=0){alert('請輸入有效價格');return;}
+  curEtf=v; isManual=true;
+  document.getElementById('etf-val').textContent='$'+v.toFixed(2);
+  document.getElementById('etf-chg').textContent='手動輸入';
+  setSrc('manual');
+  document.getElementById('price-card').classList.remove('editing');
+  document.getElementById('price-card').classList.add('manual');
+  document.getElementById('etf-src').innerHTML='來源：手動輸入<br>點「更新」恢復自動';
+  cancelEdit();
+  if(curVol) renderContent(curVol,curEtf);
+}
+document.getElementById('p-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter') confirmManual();
+  if(e.key==='Escape') cancelEdit();
+});
+function setSrc(m){
+  const d=document.getElementById('src-dot'),t=document.getElementById('src-txt');
+  if(m==='auto'){d.style.color='#4d9e6a';t.className='t-auto';t.textContent='Finnhub 自動';}
+  else if(m==='manual'){d.style.color='#d29922';t.className='t-manual';t.textContent='手動輸入';}
+  else{d.style.color='#f85149';t.className='t-stale';t.textContent='備用數據';}
+}
+
+// ── MARKET STATUS ──
+function mktSt(){
+  const et=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
+  const d=et.getDay(),m=et.getHours()*60+et.getMinutes();
+  if(d===0||d===6) return 'closed';
+  if(m>=570&&m<960) return 'open';
+  if(m>=240&&m<570) return 'pre';
+  if(m>=960&&m<1200) return 'after';
+  return 'closed';
+}
+
+// ── FINNHUB ──
+async function fhQuote(sym){
+  const FM={'^VXN':'CBOE:VXN','^VIX':'CBOE:VIX'};
+  const s=FM[sym]||sym;
+  const r=await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(s)}&token=${FK}`);
+  if(!r.ok) throw new Error(r.status);
+  const j=await r.json();
+  if(!j.c||j.c===0) throw new Error('no data');
+  return{price:j.c, change:+(j.c-j.pc).toFixed(2)};
+}
+
+// ── LOAD DATA ──
+async function loadData(){
+  document.getElementById('overlay').classList.add('show');
+  const s=mktSt(), b=document.getElementById('mkt-badge');
+  if(s==='open'){b.textContent='🟢 美股開市';b.className='mkt-badge mb-open';}
+  else if(s==='pre'){b.textContent='🌅 盤前交易';b.className='mkt-badge mb-pre';}
+  else if(s==='after'){b.textContent='🌙 盤後交易';b.className='mkt-badge mb-pre';}
+  else{b.textContent='⏸ 美股休市';b.className='mkt-badge mb-closed';}
+
+  const vxn=isVXN(); isManual=false;
+  document.getElementById('price-card').classList.remove('manual'); cancelEdit();
+  document.getElementById('vol-lbl').textContent=vxn?'VXN 波動指數':'VIX 恐慌指數';
+
+  try{
+    const[vxnD,vixD,etfD]=await Promise.all([fhQuote('^VXN'),fhQuote('^VIX'),fhQuote(curTicker)]);
+    sharedVXN=vxnD.price; sharedVIX=vixD.price;
+    const vd=vxn?vxnD:vixD; curVol=vd.price; curEtf=etfD.price;
+    cache[curTicker]={price:etfD.price,change:etfD.change,vChg:vd.change,ts:Date.now()};
+    document.getElementById('vix-val').textContent=curVol.toFixed(2);
+    document.getElementById('vix-val').className='o-mval '+(curVol<(vxn?16:13)?'c-green':curVol<=(vxn?22:18)?'c-yellow':'c-red');
+    document.getElementById('vix-chg').textContent=(vd.change>=0?'+':'')+vd.change+' 今日';
+    document.getElementById('etf-val').textContent='$'+etfD.price.toFixed(2);
+    document.getElementById('etf-chg').textContent=(etfD.change>=0?'+':'')+etfD.change+' 今日';
+    document.getElementById('vol-src').innerHTML=vxn?'來源：Finnhub/CBOE ^VXN<br>即時報價':'來源：Finnhub/CBOE ^VIX<br>即時報價';
+    setSrc('auto');
+    document.getElementById('upd-time').textContent='🟢 Finnhub · '+new Date().toLocaleTimeString('zh-Hant',{hour:'2-digit',minute:'2-digit'});
+    renderContent(curVol,curEtf);
+  } catch(e){
+    sharedVXN=30.47; sharedVIX=21.51;
+    const vxn2=isVXN(), v=vxn2?30.47:21.51;
+    curVol=v; curEtf={QQQ:700.29,VOO:537.2}[curTicker]||500;
+    document.getElementById('vix-val').textContent=v.toFixed(2);
+    document.getElementById('vix-val').className='o-mval c-red';
+    document.getElementById('vix-chg').textContent='⚠️ 備用數據';
+    document.getElementById('etf-val').textContent='$'+curEtf.toFixed(2);
+    document.getElementById('etf-chg').textContent='⚠️ 備用數據';
+    setSrc('stale');
+    document.getElementById('upd-time').textContent='⚠️ 備用數據';
+    renderContent(v,curEtf);
+  }
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ── SCENARIOS ──
+function getScene(v,vxn){
+  if(vxn){
+    if(v<16) return{name:'🟢 情景一：低波動市',state:'大市沉悶、高位橫盤。期權金嚴重被低估，不值得冒險。',strat:'【絕對防守】寧願不賺，絕不硬湊。',c:'#3fb950',id:'low',bg:'#0a1a0d'};
+    if(v<=22) return{name:'🟡 情景二：常態市',state:'大市正常呼吸，健康震盪。華爾街 2-Sigma 驗證的標準戰場。',strat:'【標準進攻】穩穩收割時間值與正常恐慌溢價。',c:'#d29922',id:'mid',bg:'#1a1500'};
+    return{name:'🔴 情景三：股災/恐慌市',state:'大市單邊暴跌，散戶瘋狂買 Put，IV Spike 爆發。',strat:'【黃金收割】利用極致恐慌溢價，退到天涯海角開火。',c:'#f85149',id:'high',bg:'#1a0a09'};
+  } else {
+    if(v<13) return{name:'🟢 低波動市場',state:'大市平靜，期權金偏低。',strat:'【防守模式】選較近行使價。',c:'#3fb950',id:'low',bg:'#0a1a0d'};
+    if(v<=18) return{name:'🟡 正常波動',state:'市場正常波動，標準操作環境。',strat:'【標準進攻】平衡收益與風險。',c:'#d29922',id:'mid',bg:'#1a1500'};
+    if(v<=25) return{name:'🔴 高波動警戒',state:'VIX 偏高，波動加劇，需擴大安全距離。',strat:'【謹慎收割】擴大安全邊際，減少注碼。',c:'#f85149',id:'high',bg:'#1a0a09'};
+    return{name:'💀 極端波動',state:'市場極度恐慌，VIX > 25。',strat:'【極度謹慎】大幅減注或暫停操作。',c:'#ff7b72',id:'extreme',bg:'#1a0505'};
+  }
+}
+
+function getStrikes(v,q,vxn){
+  if(vxn){
+    if(v<16) return[{tag:'絕對防守',tc:'st-g',cc:'sk-grn',lo:+(q*.975).toFixed(2),hi:+(q*.98).toFixed(2),pct:'-2.0%至-2.5%',dl:'~0.12',dc:'dy',nt:'期權金偏低，保持極大安全邊際。期權金不夠吸引時考慮不開倉。'}];
+    if(v<=22) return[{tag:'標準進攻',tc:'st-y',cc:'sk-yel',lo:+(q*.96).toFixed(2),hi:+(q*.97).toFixed(2),pct:'-3.0%至-4.0%',dl:'~0.12',dc:'dok',nt:'最佳收割窗口。2-Sigma 驗證的標準距離，平衡期權金收益與安全邊際。'}];
+    return[
+      {tag:'A. 安全遠',tc:'st-r',cc:'sk-pri',lo:+(q*.945).toFixed(2),hi:+(q*.955).toFixed(2),pct:'-4.5%至-5.5%',dl:'~0.12',dc:'dw',nt:'恐慌溢價高，即使較遠行使價仍有不錯期權金。標準注碼操作。'},
+      {tag:'B. 非常遠 ⭐首選',tc:'st-o',cc:'sk-sec',lo:+(q*.92).toFixed(2),hi:+(q*.935).toFixed(2),pct:'-6.5%至-8.0%',dl:'< 0.06',dc:'dok',nt:'【黃金收割首選】IV Spike 時仍可收 $0.60–$0.80。Delta 極低，風控最優。'}
+    ];
+  } else {
+    if(v<13) return[{tag:'標準賣出',tc:'st-g',cc:'sk-grn',lo:+(q*.98).toFixed(2),hi:+(q*.985).toFixed(2),pct:'-1.5%至-2.0%',dl:'~0.12',dc:'dok',nt:'VIX 極低，選較近行使價收更多期權金。'}];
+    if(v<=18) return[{tag:'標準賣出',tc:'st-y',cc:'sk-yel',lo:+(q*.97).toFixed(2),hi:+(q*.975).toFixed(2),pct:'-2.5%至-3.0%',dl:'~0.12',dc:'dok',nt:'正常環境，平衡期權金與安全邊際。'}];
+    if(v<=25) return[
+      {tag:'安全遠（標準）',tc:'st-r',cc:'sk-pri',lo:+(q*.955).toFixed(2),hi:+(q*.965).toFixed(2),pct:'-3.5%至-4.5%',dl:'~0.12',dc:'dw',nt:'波動偏高，須拉遠距離控制 Delta。'},
+      {tag:'極遠（保守）',tc:'st-o',cc:'sk-sec',lo:+(q*.935).toFixed(2),hi:+(q*.945).toFixed(2),pct:'-5.5%至-6.5%',dl:'< 0.06',dc:'dok',nt:'最保守選擇，適合大注碼或市況不明時。'}
+    ];
+    return[{tag:'⚠️ 極端情景',tc:'st-o',cc:'sk-sec',lo:+(q*.935).toFixed(2),hi:+(q*.945).toFixed(2),pct:'-5.5%+',dl:'~0.08',dc:'dok',nt:'VIX > 25，強烈建議大幅減注或暫停操作。'}];
+  }
+}
+
+function getLots(v,vxn){
+  const lo=vxn?v<16:v<13, mi=vxn?v<=22:v<=18;
+  if(lo) return[{n:4,l:'保守'},{n:6,l:'標準 ✓',r:true},{n:8,l:'積極'}];
+  if(mi) return[{n:5,l:'保守'},{n:8,l:'標準 ✓',r:true},{n:10,l:'積極'}];
+  return[{n:3,l:'保守'},{n:5,l:'標準 ✓',r:true},{n:7,l:'積極'}];
+}
+
+function getRefRows(vxn){
+  return vxn?[
+    {r:'VXN < 16  絕對防守',  d:'-2.0~-2.5%', l:'4–8張',  c:'#3fb950'},
+    {r:'VXN 17–22  標準進攻', d:'-3.0~-4.0%', l:'5–10張', c:'#d29922'},
+    {r:'VXN > 24  A. 安全遠', d:'-4.5~-5.5%', l:'3–7張',  c:'#f85149'},
+    {r:'VXN > 24  B. 非常遠⭐',d:'-6.5~-8.0%',l:'3–7張',  c:'#f0883e'},
+  ]:[
+    {r:'VIX < 13',          d:'-1.5~-2%',   l:'4–8張',  c:'#3fb950'},
+    {r:'VIX 14–18',         d:'-2.5~-3%',   l:'5–10張', c:'#d29922'},
+    {r:'VIX 20–25 標準',    d:'-3.5~-4.5%', l:'3–7張',  c:'#f85149'},
+    {r:'VIX 20–25 保守',    d:'-5.5~-6.5%', l:'3–5張',  c:'#f0883e'},
+    {r:'VIX > 25',          d:'-5.5%+',     l:'1–3張',  c:'#ff7b72'},
+  ];
+}
+
+function isActive(v,vxn,i){
+  return vxn
+    ?(v<16&&i===0)||(v>=17&&v<=22&&i===1)||(v>24&&(i===2||i===3))
+    :(v<13&&i===0)||(v>=14&&v<=18&&i===1)||(v>20&&v<=25&&(i===2||i===3))||(v>25&&i===4);
+}
+
+// ── RENDER ──
+function renderContent(v,q){
+  const vxn=isVXN();
+  const sc=getScene(v,vxn);
+  const strikes=getStrikes(v,q,vxn);
+  const lots=getLots(v,vxn);
+  const idx=vxn?'VXN':'VIX';
+  const pl=isManual?`${curTicker} $${q.toFixed(2)} ✏️`:`${curTicker} $${q.toFixed(2)}`;
+
+  // Update banner
+  document.getElementById('sc-name').textContent=sc.name;
+  document.getElementById('sc-name').style.color=sc.c;
+  document.getElementById('sc-state').textContent=sc.state;
+  document.getElementById('sc-strat').textContent=sc.strat;
+  document.getElementById('sc-icon').textContent=sc.id==='low'?'😊':sc.id==='mid'?'😐':sc.id==='high'?'😰':'🚨';
+  const bn=document.getElementById('sc-banner');
+  bn.style.borderColor=sc.c; bn.style.background=sc.bg;
+
+  // Build content
+  let h=`<div class="sec-lbl">📐 建議行使價（${pl}）</div>`;
+  strikes.forEach(s=>{
+    h+=`<div class="sk-card ${s.cc}">
+      <span class="sk-tag ${s.tc}">${s.tag}</span>
+      <div class="sk-prices">$${s.lo} – $${s.hi}</div>
+      <div class="sk-meta">
+        <span class="sk-pct">距現價 ${s.pct}</span>
+        <span class="sk-delta ${s.dc}">△ ${s.dl}</span>
+      </div>
+      <div class="sk-note">${s.nt}<br>📅 建議選下週五到期（7–10 DTE），避開財報 / FOMC 週。</div>
+    </div>`;
+  });
+
+  h+=`<div class="sec-lbl" style="margin-top:4px">📦 今日建議注碼</div>
+  <div class="lots-box">
+    <div class="lots-hdr">${idx} ${v.toFixed(2)} 動態階梯｜${idx}↑ 減注，財報/FOMC 週自動降一格</div>
+    <div class="lots-row">`;
+  lots.forEach(l=>{h+=`<div class="lot ${l.r?'rec':''}"><div class="lot-n">${l.n}</div><div class="lot-l">${l.l}</div></div>`;});
+  h+=`</div></div>`;
+
+  const rows=getRefRows(vxn);
+  h+=`<div class="sec-lbl" style="margin-top:4px">📋 全情景參考（${idx}）</div>
+  <div class="ref-box">
+    <div class="ref-hr">
+      <div class="ref-hc" style="flex:0.15"></div>
+      <div class="ref-hc" style="flex:1.4">情景</div>
+      <div class="ref-hc" style="flex:1;text-align:center">距現價</div>
+      <div class="ref-hc" style="flex:0.9;text-align:right">注碼</div>
+    </div>`;
+  rows.forEach((rw,i)=>{
+    const act=isActive(v,vxn,i);
+    h+=`<div class="ref-r ${act?'ar':''}">
+      <div class="ref-dot" style="background:${rw.c}"></div>
+      <div class="ref-rng" style="color:${act?rw.c:'var(--text)'};font-weight:${act?700:400}">${rw.r}</div>
+      <div class="ref-dst">${rw.d}</div>
+      <div class="ref-lt">${rw.l}${act?' <span class="ref-am">◀今日</span>':''}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  document.getElementById('content').innerHTML=h;
+}
+
+// Auto-refresh every 5 min when page is visible
+setInterval(()=>{ if(!isManual) loadData(); }, 300000);
+
+// INIT
+loadData();
+</script>
+</body>
+</html>
